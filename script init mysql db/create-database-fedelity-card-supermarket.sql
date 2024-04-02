@@ -10,11 +10,11 @@ CREATE TABLE IF NOT EXISTS `cliente` (
     `nome` VARCHAR(255) NOT NULL,
     `cognome` VARCHAR(255) NOT NULL,
     `indirizzo` VARCHAR(255),
-    `numero di telefono` VARCHAR(20),
+    `numero_di_telefono` VARCHAR(20),
     `email` VARCHAR(255),
-    `data tesseramento` TIMESTAMP,
-    `numero Tessera` VARCHAR(20),
-    `storici acquisti` TEXT
+    `data_tesseramento` TIMESTAMP,
+    `numero_tessera` VARCHAR(20),
+    `storici_acquisti` TEXT
 );
 
 -- Creazione della tabella "acquisto"
@@ -39,13 +39,13 @@ CREATE TABLE IF NOT EXISTS `sessione_acquisto` (
 );
 
 -- Creazione della tabella "fedelity_card"
-CREATE TABLE IF NOT EXISTS `carta_fedeltà` (
+CREATE TABLE IF NOT EXISTS `carta_fedelta` (
     `id` bigint AUTO_INCREMENT PRIMARY KEY,
-    `Numero tessera` VARCHAR(20) NOT NULL,
-    `Data di creazione tessera` TIMESTAMP,
+    `numero_tessera` VARCHAR(20) NOT NULL,
+    `data_di_creazione_tessera` TIMESTAMP,
     `punti` bigint DEFAULT 0,
     `cliente_id` bigint,
-    `id_punto_vendita` bigint,
+    `punto_vendita_id` bigint,
     CONSTRAINT fk_cliente_fedelity_card
     FOREIGN KEY (cliente_id) REFERENCES cliente(id)
 );
@@ -53,10 +53,10 @@ CREATE TABLE IF NOT EXISTS `carta_fedeltà` (
 -- Creazione della tabella "points_collection_campaign"
 CREATE TABLE IF NOT EXISTS `campagna_punti` (
     `id` bigint AUTO_INCREMENT PRIMARY KEY,
-    `Nome Campagna` VARCHAR(255) NOT NULL,
-    `Data Inizio` TIMESTAMP,
-    `Data Fine` TIMESTAMP,
-    `Conversione Punti/EURO` DECIMAL(10, 2)
+    `nome_campagna` VARCHAR(255) NOT NULL,
+    `data_Inizio` TIMESTAMP,
+    `data_fine` TIMESTAMP,
+    `conversione_punti_euro` DECIMAL(10, 2)
 );
 
 -- Creazione della tabella "type_of_customer"
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `azienda` (
      `id` bigint AUTO_INCREMENT PRIMARY KEY,
     `nome` VARCHAR(255) NOT NULL,
     `regione` VARCHAR(255) NOT NULL,
-    `città` VARCHAR(255) not null
+    `citta` VARCHAR(255) not null
 );
 
 -- creazione della tabella "tipologia_azienda"
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `tipologia_azienda` (
 CREATE TABLE IF NOT EXISTS `punto_vendita`(
     `id` bigint AUTO_INCREMENT PRIMARY KEY,
     `nome` VARCHAR(255) NOT NULL,
-    `città` VARCHAR(255) NOT NULL,
+    `citta` VARCHAR(255) NOT NULL,
     `regione` VARCHAR(255) NOT NULL,
     `azienda_id` bigint,
     `tipologia_azienda_id` bigint,
@@ -100,10 +100,10 @@ CREATE TABLE IF NOT EXISTS `punto_vendita`(
 
 -- add costrain customer (fedelity_card)
 
-ALTER TABLE cliente ADD COLUMN carta_fedeltà_id bigint;
+ALTER TABLE cliente ADD COLUMN carta_fedelta_id bigint;
 
 ALTER TABLE cliente ADD CONSTRAINT fk_fedelity_card
-FOREIGN KEY (carta_fedeltà_id) REFERENCES carta_fedeltà(id);
+FOREIGN KEY (carta_fedelta_id) REFERENCES carta_fedelta(id);
 
 -- add costrain customer (type_of_customer)
 
@@ -124,7 +124,11 @@ FOREIGN KEY (tipo_cliente_id) REFERENCES tipo_cliente(id);
 -- ALTER TABLE cliente ADD CONSTRAINT fk_tipologia_azienda
 -- FOREIGN KEY (tipologia_azienda_id) REFERENCES tipologia_azienda(id);
 
--- insert biginto type_of_consumer
+-- add costrain carta_fedelta
+ALTER TABLE carta_fedelta ADD CONSTRAINT fk_punto_vendita_fedelity_card
+FOREIGN KEY (punto_vendita_id) REFERENCES punto_vendita(id);
+
+-- insert into type_of_consumer
 
 INSERT into `tipo_cliente` (`tipo_cliente`)
 VALUES ('BUSINESS'), ('CONSUMATORE');
