@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS `carta_fedelta` (
     `data_di_creazione_tessera` TIMESTAMP,
     `punti` bigint DEFAULT 0,
     `cliente_id` bigint,
-    `punto_vendita_id` bigint,
     CONSTRAINT fk_cliente_fedelity_card
     FOREIGN KEY (cliente_id) REFERENCES cliente(id)
 );
@@ -78,9 +77,9 @@ CREATE TABLE IF NOT EXISTS `tipologia_azienda` (
     `id` bigint AUTO_INCREMENT PRIMARY KEY,
     `nome` VARCHAR(255) NOT NULL,
     `descrizione` VARCHAR(255) NOT NULL -- ,
-    -- `id_punto_vendita` bigint , credo sia superfluo
+    -- `punto_vendita_id` bigint , credo sia superfluo
     -- ADD CONSTRAINT fk_punto_vendita 
-    -- FOREIGN KEY (id_punto_vendita) REFERENCES punto_vandita(id)
+    -- FOREIGN KEY (punto_vendita_id) REFERENCES punto_vandita(id)
 );
 
 
@@ -92,9 +91,9 @@ CREATE TABLE IF NOT EXISTS `punto_vendita`(
     `regione` VARCHAR(255) NOT NULL,
     `azienda_id` bigint,
     `tipologia_azienda_id` bigint,
-    CONSTRAINT fk_azienda
+    CONSTRAINT fk_azienda_punto_vendita
     FOREIGN KEY (azienda_id) REFERENCES azienda(id),
-    CONSTRAINT fk_tipologia_azienda
+    CONSTRAINT fk_tipologia_azienda_punto_vendita
     FOREIGN KEY (tipologia_azienda_id) REFERENCES tipologia_azienda(id)
 );
 
@@ -112,17 +111,19 @@ ALTER TABLE cliente ADD COLUMN tipo_cliente_id bigint;
 ALTER TABLE cliente ADD CONSTRAINT fk_tipo_cliente
 FOREIGN KEY (tipo_cliente_id) REFERENCES tipo_cliente(id);
 
--- add costrain customer (punto_vedinta)
+-- add costrain customer (azienda)
 
--- ALTER TABLE cliente ADD COLUMN azienda_id bigint;
+ALTER TABLE azienda ADD COLUMN punto_vendita_id bigint;
 
--- ALTER TABLE cliente ADD CONSTRAINT fk_azienda
--- FOREIGN KEY (azienda_id) REFERENCES aziedna(id);
+ALTER TABLE azienda ADD CONSTRAINT fk_punto_vendita_azienda
+FOREIGN KEY (punto_vendita_id) REFERENCES punto_vendita(id);
 
--- ALTER TABLE cliente ADD COLUMN tipologia_azienda_id bigint;
+-- add costrain carta_fedelta
 
--- ALTER TABLE cliente ADD CONSTRAINT fk_tipologia_azienda
--- FOREIGN KEY (tipologia_azienda_id) REFERENCES tipologia_azienda(id);
+ALTER TABLE carta_fedelta ADD COLUMN punto_vendita_id bigint;
+
+ALTER TABLE carta_fedelta ADD CONSTRAINT fk_tipologia_azienda_carta_fedelta
+FOREIGN KEY (punto_vendita_id) REFERENCES punto_vendita(id);
 
 -- add costrain carta_fedelta
 ALTER TABLE carta_fedelta ADD CONSTRAINT fk_punto_vendita_fedelity_card

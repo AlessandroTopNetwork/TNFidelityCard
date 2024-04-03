@@ -1,10 +1,20 @@
 package com.supermarket.fedelity.card.entity;
 
-import jakarta.persistence.*;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "azienda")
-public class Azienda {
+public class Azienda extends BaseEntity {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAzienda;
@@ -19,8 +29,8 @@ public class Azienda {
     private String citta;
 
     @OneToMany
-    @JoinColumn(name = "id_punto_vendita")
-    private PuntoVendita puntoVendita;
+    @JoinColumn(name = "punto_vendita_id")
+    private List<PuntoVendita> puntiVendita;
 
     public Long getIdAzienda() {
         return idAzienda;
@@ -54,16 +64,16 @@ public class Azienda {
         this.citta = citta;
     }
 
-    public PuntoVendita getPuntoVendita() {
-        return puntoVendita;
+    public List<PuntoVendita> getPuntoVendita() {
+        return puntiVendita;
     }
 
-    public void setPuntoVendita(PuntoVendita puntoVendita) {
-        this.puntoVendita = puntoVendita;
+    public void setPuntoVendita(List<PuntoVendita> puntoVendita) {
+        this.puntiVendita = puntoVendita;
     }
 
     @Override
     public String toString() {
-        return "Azienda [idAzienda=" + idAzienda + ", nomeAzienda=" + nomeAzienda + ", regione=" + regione + ", citta=" + citta + ", puntoVendita=" + puntoVendita + "]";
+        return "Azienda [idAzienda=" + idAzienda + ", nomeAzienda=" + nomeAzienda + ", regione=" + regione + ", citta=" + citta + ", puntoVendita=" + puntiVendita + "]";
     }
 }

@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +36,8 @@ public class Cliente {
 	@Column(name = "email")
 	private String email;
 
-//	@Column(name = "data_tesseramento")
-//	private OffsetDateTime dataTesseramento;
+	@Column(name = "data_tesseramento")
+	private OffsetDateTime dataTesseramento;
 
 	@Column(name = "numero_tessera")
 	private String numeroTessera;
@@ -112,13 +112,13 @@ public class Cliente {
 		this.email = email;
 	}
 
-//	public OffsetDateTime getDataTesseramento() {
-//		return dataTesseramento;
-//	}
-//
-//	public void setDataTesseramento(OffsetDateTime dataTesseramento) {
-//		this.dataTesseramento = dataTesseramento;
-//	}
+	public OffsetDateTime getDataTesseramento() {
+		return dataTesseramento;
+	}
+
+	public void setDataTesseramento(OffsetDateTime dataTesseramento) {
+		this.dataTesseramento = dataTesseramento;
+	}
 
 	public String getNumeroTessera() {
 		return numeroTessera;

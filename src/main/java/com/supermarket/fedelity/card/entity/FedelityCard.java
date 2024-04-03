@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "carta_fedelta")
-public class FedelityCard {
+public class FedelityCard extends BaseEntity {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +24,8 @@ public class FedelityCard {
     @Column(name = "Numero_tessera", nullable = false)
     private String numeroTessera;
 
-//    @Column(name = "Data_di_creazione_tessera")
-//    private OffsetDateTime dataCreazioneTessera;
+    @Column(name = "Data_di_creazione_tessera")
+    private OffsetDateTime dataCreazioneTessera;
 
     @Column(name = "punti")
     private long punti;
@@ -35,7 +35,7 @@ public class FedelityCard {
     @JsonBackReference
     private Cliente cliente;
 
-    @Column(name = "id_punto_vendita")
+    @Column(name = "punto_vendita_id")
     private long idPuntoVendita;
     
     public FedelityCard() {}
@@ -65,13 +65,13 @@ public class FedelityCard {
 		this.numeroTessera = numeroTessera;
 	}
 
-//	public OffsetDateTime getDataCreazioneTessera() {
-//		return dataCreazioneTessera;
-//	}
-//
-//	public void setDataCreazioneTessera(OffsetDateTime dataCreazioneTessera) {
-//		this.dataCreazioneTessera = dataCreazioneTessera;
-//	}
+	public OffsetDateTime getDataCreazioneTessera() {
+		return dataCreazioneTessera;
+	}
+
+	public void setDataCreazioneTessera(OffsetDateTime dataCreazioneTessera) {
+		this.dataCreazioneTessera = dataCreazioneTessera;
+	}
 
 	public long getPunti() {
 		return punti;
@@ -99,8 +99,9 @@ public class FedelityCard {
 
 	@Override
 	public String toString() {
-		return "FedelityCard [id=" + id + ", numeroTessera=" + numeroTessera 
-				+ ", punti=" + punti + ", idPuntoVendita=" + idPuntoVendita + "]";
-	}  
+		return "FedelityCard [id=" + id + ", numeroTessera=" + numeroTessera + ", dataCreazioneTessera="
+				+ dataCreazioneTessera + ", punti=" + punti + ", cliente=" + cliente + ", idPuntoVendita="
+				+ idPuntoVendita + "]";
+	}
 
 }

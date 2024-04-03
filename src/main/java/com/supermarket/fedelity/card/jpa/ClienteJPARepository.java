@@ -11,5 +11,7 @@ import com.supermarket.fedelity.card.entity.Cliente;
 public interface ClienteJPARepository extends JpaRepository<Cliente, Long>{
 	
 	List<Cliente> findAll();
+	
+	Cliente findById(long id);
 
 }

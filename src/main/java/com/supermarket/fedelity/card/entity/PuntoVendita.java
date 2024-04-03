@@ -1,13 +1,16 @@
 package com.supermarket.fedelity.card.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "punto_vendita")
-public class PuntoVendita {
+public class PuntoVendita extends BaseEntity {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_punto_vendita")
+    @Column(name = "id")
     private Long idPuntoVendita;
 
     @Column(name = "nome_punto_vendita")
@@ -21,6 +24,7 @@ public class PuntoVendita {
 
     @ManyToOne
     @JoinColumn(name = "id_azienda")
+    @JsonBackReference
     private Azienda azienda;
 
     public Long getIdPuntoVendita() {
@@ -69,8 +73,7 @@ public class PuntoVendita {
                 "idPuntoVendita=" + idPuntoVendita +
                 ", nomePuntoVendita='" + nomePuntoVendita + '\'' +
                 ", citta='" + citta + '\'' +
-                ", regione='" + regione + '\'' +
-                ", azienda=" + azienda +
+                ", regione='" + regione +
                 '}';
     }
 }
