@@ -2,6 +2,8 @@ package com.supermarket.fedelity.card.entity;
 
 import java.math.BigDecimal;
 
+import com.supermarket.fedelity.card.dto.AcquistoResource;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -71,6 +73,16 @@ public class Acquisto extends BaseEntity {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	
+    public AcquistoResource aziendaToResource(Acquisto acquisto) {
+    	
+    	AcquistoResource ac = new AcquistoResource();
+    	
+
+    	
+    	return ac;
+    	
+    }
 
 	@Override
 	public String toString() {

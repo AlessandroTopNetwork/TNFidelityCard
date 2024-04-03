@@ -1,13 +1,17 @@
 package com.supermarket.fedelity.card.dto;
 
+import java.time.OffsetDateTime;
 import java.util.List;
+
+import com.supermarket.fedelity.card.entity.ErrorEntity;
+import com.supermarket.fedelity.card.entity.FedelityCard;
 
 public class FedelityCardResource extends BaseResource {
 
 	private String numeroTessera;
 	private String dataCreazioneTessera;
 	private long punti;
-	private long idPuntoVendita;
+	private String puntoVenditaNome;
     private List<ClienteResource> clienti;
 
 	public String getNumeroTessera() {
@@ -42,12 +46,12 @@ public class FedelityCardResource extends BaseResource {
 		this.clienti = cliente;
 	}
 
-	public long getIdPuntoVendita() {
-		return idPuntoVendita;
+	public String getPuntoVenditaNome() {
+		return puntoVenditaNome;
 	}
 
-	public void setIdPuntoVendita(long idPuntoVendita) {
-		this.idPuntoVendita = idPuntoVendita;
+	public void setPuntoVenditaNome(String puntoVenditaNome) {
+		this.puntoVenditaNome = puntoVenditaNome;
 	}
 
 }

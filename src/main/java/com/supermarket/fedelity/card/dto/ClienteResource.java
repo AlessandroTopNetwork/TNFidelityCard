@@ -1,5 +1,12 @@
 package com.supermarket.fedelity.card.dto;
 
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.supermarket.fedelity.card.entity.Cliente;
+import com.supermarket.fedelity.card.entity.ErrorEntity;
+
 public class ClienteResource extends BaseResource {
 
 	private String nome;

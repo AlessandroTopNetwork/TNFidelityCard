@@ -5,7 +5,7 @@ public class PuntoVenditaResource extends BaseResource {
     private String nomePuntoVendita;
     private String citta;
     private String regione;
-    private AziendaResoure azienda;
+    private String nomeAzienda;
 
     public String getNomePuntoVendita() {
         return nomePuntoVendita;
@@ -31,18 +31,18 @@ public class PuntoVenditaResource extends BaseResource {
         this.regione = regione;
     }
 
-    public AziendaResoure getAzienda() {
-        return azienda;
+    public String getNomeAzienda() {
+        return nomeAzienda;
     }
 
-    public void setAzienda(AziendaResoure azienda) {
-        this.azienda = azienda;
+    public void setNomeAzienda(String nomeAzienda) {
+        this.nomeAzienda = nomeAzienda;
     }
 
 	@Override
 	public String toString() {
 		return "PuntoVenditaResource [nomePuntoVendita=" + nomePuntoVendita + ", citta=" + citta + ", regione="
-				+ regione + ", azienda=" + azienda + "]";
+				+ regione + ", azienda=" + nomeAzienda + "]";
 	}    
     
 }

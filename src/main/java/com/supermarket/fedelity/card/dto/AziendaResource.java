@@ -2,7 +2,7 @@ package com.supermarket.fedelity.card.dto;
 
 import java.util.List;
 
-public class AziendaResoure extends BaseResource {
+public class AziendaResource extends BaseResource {
 
     private String nomeAzienda;
     private String regione;

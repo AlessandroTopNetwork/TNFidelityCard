@@ -1,8 +1,11 @@
 package com.supermarket.fedelity.card.entity;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.google.gson.Gson;
+import com.supermarket.fedelity.card.dto.ClienteResource;
+import com.supermarket.fedelity.card.dto.ErrorResource;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -48,6 +52,10 @@ public class Cliente extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "carta_fedelta_id")
     private FedelityCard fedelityCard;
+    
+    @OneToMany
+    @JoinColumn(name = "carta_fedelta_id")
+    private List<Acquisto> acquisti;
     
     public Cliente() {}
 
@@ -135,12 +143,28 @@ public class Cliente extends BaseEntity {
 	public void setStoriciAcquisti(String storiciAcquisti) {
 		this.storiciAcquisti = storiciAcquisti;
 	}
-
-	public static void main(String[] args) {
-		Gson gson = new Gson();
-
-		System.out.println(gson.toJson(new Cliente(0l, "a", "a", "a", "a", "a", "a", "a", new FedelityCard(0l, "a", 0l, 0l))));
-		;
+	
+	public FedelityCard getFedelityCard() {
+		return fedelityCard;
 	}
+
+	public void setFedelityCard(FedelityCard fedelityCard) {
+		this.fedelityCard = fedelityCard;
+	}
+
+	public List<Acquisto> getAcquisti() {
+		return acquisti;
+	}
+
+	public void setAcquisti(List<Acquisto> acquisti) {
+		this.acquisti = acquisti;
+	}
+
+//	public static void main(String[] args) {
+//		Gson gson = new Gson();
+//
+//		System.out.println(gson.toJson(new Cliente(0l, "a", "a", "a", "a", "a", "a", "a", new FedelityCard(0l, "a", 0l, 0l))));
+//		;
+//	}
 
 }
