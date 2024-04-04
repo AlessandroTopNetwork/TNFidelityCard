@@ -36,7 +36,7 @@ public class ClienteFactory {
 		} else {
 			clienteResource.setNome(cliente.getNome());
 			clienteResource.setCognome(cliente.getCognome());
-			clienteResource.setDataTesseramento(cliente.getDataTesseramento().toString());
+			clienteResource.setDataTesseramento(null !=cliente.getDataTesseramento() ? cliente.getDataTesseramento().toString() : null);
 			clienteResource.setEmail(cliente.getEmail());
 			clienteResource.setFedelityCard(fedelityCardFactory.entityToResource(cliente.getFedelityCard()));
 			clienteResource.setIndirizzo(cliente.getIndirizzo());

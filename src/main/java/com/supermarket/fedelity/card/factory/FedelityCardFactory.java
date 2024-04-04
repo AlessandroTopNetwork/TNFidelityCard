@@ -26,7 +26,11 @@ public class FedelityCardFactory {
 
 		FedelityCardResource resource = new FedelityCardResource();
 
-		if (null != card.getError()) { // se record in errore setto solo quest'ultimo
+		if (null == card) {
+			resource.setError(new ErrorResource());
+			resource.getError().setError("record not found 404");
+			resource.getError().setDescription("no comment");
+		} else if (null != card.getError()) { // se record in errore setto solo quest'ultimo
 			if(!"".equalsIgnoreCase(card.getError().getError())) {
 				resource.setError(new ErrorResource());
 				resource.getError().setError(card.getError().getError());
@@ -49,8 +53,12 @@ public class FedelityCardFactory {
 	public FedelityCard resourceToEntity(FedelityCardResource card) {
 
 		FedelityCard entity = new FedelityCard();
-
-		if (null != card.getError()) {
+		
+		if (null == card) {
+			entity.setError(new ErrorEntity());
+			entity.getError().setError("record not found 404");
+			entity.getError().setDescription("no comment");
+		} else if (null != card.getError()) {
 				if(!"".equalsIgnoreCase(card.getError().getError())) { // se record in errore setto solo quest'ultimo
 				entity.setError(new ErrorEntity());
 				entity.getError().setError(card.getError().getError());

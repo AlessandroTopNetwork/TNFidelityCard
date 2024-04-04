@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.supermarket.fedelity.card.dto.ClienteResource;
-import com.supermarket.fedelity.card.entity.Cliente;
 import com.supermarket.fedelity.card.serviceinterface.ServiceCliente;
 
 @RestController
