@@ -1,20 +1,19 @@
 package com.supermarket.fedelity.card.service;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.supermarket.fedelity.card.dto.ClienteResource;
-import com.supermarket.fedelity.card.dto.FedelityCardResource;
+import com.supermarket.fedelity.card.dto.request.ClienteRequest;
 import com.supermarket.fedelity.card.entity.Cliente;
 import com.supermarket.fedelity.card.factory.ClienteFactory;
 import com.supermarket.fedelity.card.jpa.ClienteJPARepository;
 import com.supermarket.fedelity.card.jpa.FedelityCardJPARepository;
 import com.supermarket.fedelity.card.serviceinterface.ServiceCliente;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class ServiceClienteImpl extends BaseService implements ServiceCliente {
@@ -29,31 +28,33 @@ public class ServiceClienteImpl extends BaseService implements ServiceCliente {
 	private ClienteFactory clienteFactory;
 
 	@Override
-	public List<ClienteResource> getListClienti() {
+	public List<ClienteRequest> getListClienti() throws Exception {
 		log.info("call getListCliente");
 		List<Cliente> listEntity = clienteRepository.findAll();
-		List<ClienteResource> listResource = clienteFactory.entityToResource(listEntity);
+		List<ClienteRequest> listRequest = clienteFactory.entityToRequest(listEntity);
 		log.info("end getListCliente");
-		return listResource;
+		return listRequest;
 	}
 
 	@Override
-	public ClienteResource createCliente(ClienteResource clienteResource) {
+	public ClienteRequest createCliente(ClienteRequest clienteRequest) throws Exception {
 		log.info("call createCliente");
-		Cliente cliente = clienteFactory.resourceToEntity(clienteResource);
+		Cliente cliente = clienteFactory.requestToEntity(clienteRequest); // convert request from end point to entity
 		cliente.setDataTesseramento(OffsetDateTime.now());
 		cliente.getFedelityCard().setDataCreazioneTessera(OffsetDateTime.now());
 		fedelityCardRepository.save(cliente.getFedelityCard());
-		clienteRepository.save(cliente); // convert resource from end point to entity
+		clienteRepository.save(cliente);
+		cliente.getFedelityCard().getClienti().add(cliente); // add un nuovo cliente alla lista già esistente
+		fedelityCardRepository.save(cliente.getFedelityCard());
 		log.info("end createCliente");
-		return clienteResource; // return cliente resource
+		return clienteRequest; // return cliente request
 	}
 
 	@Override
-	public ClienteResource findById(long id) {
+	public ClienteRequest findById(long id) throws Exception {
 		log.info("call findById");
 		Cliente cliente = clienteRepository.findById(id);
-		return clienteFactory.entityToResource(cliente);
+		return clienteFactory.entityToRequest(cliente);
 	}
 
 }

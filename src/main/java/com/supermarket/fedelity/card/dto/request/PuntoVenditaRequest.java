@@ -1,6 +1,6 @@
-package com.supermarket.fedelity.card.dto;
+package com.supermarket.fedelity.card.dto.request;
 
-public class PuntoVenditaResource extends BaseResource {
+public class PuntoVenditaRequest {
 
     private String nomePuntoVendita;
     private String citta;

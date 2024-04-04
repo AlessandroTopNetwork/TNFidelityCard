@@ -1,13 +1,13 @@
-package com.supermarket.fedelity.card.dto;
+package com.supermarket.fedelity.card.dto.request;
 
 import java.util.List;
 
-public class AziendaResource extends BaseResource {
+public class AziendaRequest {
 
     private String nomeAzienda;
     private String regione;
     private String citta;
-    private List<PuntoVenditaResource> puntiVendita;
+    private List<PuntoVenditaRequest> puntiVendita;
 
     public String getNomeAzienda() {
         return nomeAzienda;
@@ -33,11 +33,11 @@ public class AziendaResource extends BaseResource {
         this.citta = citta;
     }
 
-	public List<PuntoVenditaResource> getPuntiVendita() {
+	public List<PuntoVenditaRequest> getPuntiVendita() {
 		return puntiVendita;
 	}
 
-	public void setPuntiVendita(List<PuntoVenditaResource> puntiVendita) {
+	public void setPuntiVendita(List<PuntoVenditaRequest> puntiVendita) {
 		this.puntiVendita = puntiVendita;
 	}
 

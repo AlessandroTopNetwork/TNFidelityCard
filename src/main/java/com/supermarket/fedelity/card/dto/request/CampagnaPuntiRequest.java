@@ -1,9 +1,9 @@
-package com.supermarket.fedelity.card.dto;
+package com.supermarket.fedelity.card.dto.request;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-public class CampagnaPuntiResource extends BaseResource {
+public class CampagnaPuntiRequest {
 
     private String nomeCampagna;
     private OffsetDateTime dataInizio;

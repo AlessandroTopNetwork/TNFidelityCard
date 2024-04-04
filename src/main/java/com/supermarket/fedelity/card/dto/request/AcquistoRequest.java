@@ -1,13 +1,13 @@
-package com.supermarket.fedelity.card.dto;
+package com.supermarket.fedelity.card.dto.request;
 
 import java.math.BigDecimal;
 
-public class AcquistoResource extends BaseResource {
+public class AcquistoRequest {
 	
 	private String idProdotto;
     private String nomeProdotto;
     private BigDecimal prezzoProdotto;
-    private ClienteResource cliente;
+    private ClienteRequest cliente;
 
 	public String getIdProdotto() {
 		return idProdotto;
@@ -33,11 +33,11 @@ public class AcquistoResource extends BaseResource {
 		this.prezzoProdotto = prezzoProdotto;
 	}
 
-	public ClienteResource getCliente() {
+	public ClienteRequest getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(ClienteResource cliente) {
+	public void setCliente(ClienteRequest cliente) {
 		this.cliente = cliente;
 	}
 

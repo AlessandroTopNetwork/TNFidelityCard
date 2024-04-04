@@ -2,10 +2,6 @@ package com.supermarket.fedelity.card.entity;
 
 import java.util.List;
 
-import org.springframework.cglib.core.CollectionUtils;
-
-import com.supermarket.fedelity.card.dto.AziendaResource;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +16,7 @@ import jakarta.persistence.Table;
 public class Azienda extends BaseEntity {
 	
     @Id
+	@Column(name = "id_azienda")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAzienda;
 
@@ -76,20 +73,20 @@ public class Azienda extends BaseEntity {
         this.puntiVendita = puntoVendita;
     }
     
-    public AziendaResource aziendaToResource(Azienda a) {
-    	
-    	AziendaResource ar = new AziendaResource();
-    	
-    	ar.setCitta(a.getCitta());
-    	ar.setNomeAzienda(a.getNomeAzienda());
-    	if(null != a.puntiVendita || !a.getPuntoVendita().isEmpty()) {
-        	ar.setPuntiVendita(a.getPuntoVendita().get(0).puntoVenditaToResource(a.getPuntoVendita())); // per evitare di fare un istanza di puntiVEndita extra
-    	}
-    	ar.setRegione(a.getRegione());
-    	
-    	return ar;
-    	
-    }
+//    public AziendaResource aziendaToResource(Azienda a) {
+//    	
+//    	AziendaResource ar = new AziendaResource();
+//    	
+//    	ar.setCitta(a.getCitta());
+//    	ar.setNomeAzienda(a.getNomeAzienda());
+//    	if(null != a.puntiVendita || !a.getPuntoVendita().isEmpty()) {
+//        	ar.setPuntiVendita(a.getPuntoVendita().get(0).puntoVenditaToResource(a.getPuntoVendita())); // per evitare di fare un istanza di puntiVEndita extra
+//    	}
+//    	ar.setRegione(a.getRegione());
+//    	
+//    	return ar;
+//    	
+//    }
 
     @Override
     public String toString() {

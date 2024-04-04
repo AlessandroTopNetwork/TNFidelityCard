@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 public class CampagnaPunti extends BaseEntity {
 	
 	@Id
+	@Column(name = "id_campgna_punti")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

@@ -1,13 +1,8 @@
-package com.supermarket.fedelity.card.dto;
+package com.supermarket.fedelity.card.dto.request;
 
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import com.supermarket.fedelity.card.entity.enumeration.TipologiaCliente;
 
-import com.supermarket.fedelity.card.entity.Cliente;
-import com.supermarket.fedelity.card.entity.ErrorEntity;
-
-public class ClienteResource extends BaseResource {
+public class ClienteRequest {
 
 	private String nome;
 	private String cognome;
@@ -17,7 +12,8 @@ public class ClienteResource extends BaseResource {
 	private String dataTesseramento;
 	private String numeroTessera;
 	private String storiciAcquisti;
-    private FedelityCardResource fedelityCard;
+    private FedelityCardRequest fedelityCard;
+    private TipologiaCliente tipoCliente;
 
 	public String getNome() {
 		return nome;
@@ -83,12 +79,20 @@ public class ClienteResource extends BaseResource {
 		this.storiciAcquisti = storiciAcquisti;
 	}
 
-	public FedelityCardResource getFedelityCard() {
+	public FedelityCardRequest getFedelityCard() {
 		return fedelityCard;
 	}
 
-	public void setFedelityCard(FedelityCardResource fedelityCard) {
+	public void setFedelityCard(FedelityCardRequest fedelityCard) {
 		this.fedelityCard = fedelityCard;
+	}
+
+	public TipologiaCliente getTipoCliente() {
+		return tipoCliente;
+	}
+
+	public void setTipoCliente(TipologiaCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 
 	@Override

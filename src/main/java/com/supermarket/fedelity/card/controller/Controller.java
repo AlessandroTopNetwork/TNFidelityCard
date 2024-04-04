@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.supermarket.fedelity.card.dto.ClienteResource;
+import com.supermarket.fedelity.card.dto.request.ClienteRequest;
 import com.supermarket.fedelity.card.serviceinterface.ServiceCliente;
 
 @RestController
@@ -21,17 +21,17 @@ public class Controller { // controller masetr crud of consumer and affliate car
 	private ServiceCliente serviceCliente;
 	
 	@GetMapping(value = "/consumers")
-	public List<ClienteResource> getConsumerAndCard() throws Exception {
+	public List<ClienteRequest> getConsumerAndCard() throws Exception {
 		return serviceCliente.getListClienti();
 	}
 	
 	@GetMapping(value = "/consumer/{id}")
-	public ClienteResource getConsumerAndCard(@PathVariable long id) throws Exception {
+	public ClienteRequest getConsumerAndCard(@PathVariable long id) throws Exception {
 		return serviceCliente.findById(id);
 	}
 	
 	@PostMapping(value = "/consumer")
-	public ClienteResource registerCard(@RequestBody ClienteResource cliente) throws Exception {
+	public ClienteRequest registerCard(@RequestBody ClienteRequest cliente) throws Exception {
 		return serviceCliente.createCliente(cliente);
 	}
 	

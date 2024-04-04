@@ -2,7 +2,7 @@ package com.supermarket.fedelity.card.entity;
 
 import java.math.BigDecimal;
 
-import com.supermarket.fedelity.card.dto.AcquistoResource;
+import com.supermarket.fedelity.card.dto.request.AcquistoRequest;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +18,7 @@ import jakarta.persistence.Table;
 public class Acquisto extends BaseEntity {
 	
     @Id
+	@Column(name = "id_acquisto")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -74,9 +75,9 @@ public class Acquisto extends BaseEntity {
 		this.cliente = cliente;
 	}
 	
-    public AcquistoResource aziendaToResource(Acquisto acquisto) {
+    public AcquistoRequest aziendaToResource(Acquisto acquisto) {
     	
-    	AcquistoResource ac = new AcquistoResource();
+    	AcquistoRequest ac = new AcquistoRequest();
     	
 
     	

@@ -1,7 +1,10 @@
 package com.supermarket.fedelity.card.entity;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -11,7 +14,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -20,6 +22,7 @@ import jakarta.persistence.Table;
 public class FedelityCard extends BaseEntity {
 
 	@Id
+	@Column(name = "id_carta_fedelta")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
@@ -33,7 +36,7 @@ public class FedelityCard extends BaseEntity {
 	private long punti;
 
 	@OneToMany
-	@JoinColumn(name = "cliente_id")
+	@JoinColumn(name = "carta_fedelta_id")
 	@JsonBackReference
 	private List<Cliente> clienti;
 
@@ -85,7 +88,10 @@ public class FedelityCard extends BaseEntity {
 	}
 
 	public List<Cliente> getClienti() {
-		return clienti;
+		if(!CollectionUtils.isEmpty(clienti)) {
+			return clienti;
+		}
+		return new ArrayList<Cliente>();
 	}
 
 	public void setClienti(List<Cliente> clienti) {

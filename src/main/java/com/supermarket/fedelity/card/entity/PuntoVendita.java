@@ -1,10 +1,6 @@
 package com.supermarket.fedelity.card.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.supermarket.fedelity.card.dto.PuntoVenditaResource;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,8 +16,8 @@ import jakarta.persistence.Table;
 public class PuntoVendita extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPuntoVendita;
 
 	@Column(name = "nome_punto_vendita")
@@ -78,25 +74,25 @@ public class PuntoVendita extends BaseEntity {
 		this.azienda = azienda;
 	}
 
-	public List<PuntoVenditaResource> puntoVenditaToResource(List<PuntoVendita> puntiVenditaList) {
-
-		List<PuntoVenditaResource> listPuntiVendita = new ArrayList<PuntoVenditaResource>();
-
-		for (PuntoVendita puntoVendita : puntiVenditaList) {
-			
-			PuntoVenditaResource pvr = new PuntoVenditaResource();
-			
-			pvr.setNomeAzienda(puntoVendita.getAzienda().getNomeAzienda());
-			pvr.setCitta(puntoVendita.getCitta());
-			pvr.setNomePuntoVendita(puntoVendita.getNomePuntoVendita());
-			pvr.setRegione(puntoVendita.getRegione());
-			
-			listPuntiVendita.add(pvr);
-		}
-
-		return listPuntiVendita;
-
-	}
+//	public List<PuntoVenditaResource> puntoVenditaToResource(List<PuntoVendita> puntiVenditaList) {
+//
+//		List<PuntoVenditaResource> listPuntiVendita = new ArrayList<PuntoVenditaResource>();
+//
+//		for (PuntoVendita puntoVendita : puntiVenditaList) {
+//			
+//			PuntoVenditaResource pvr = new PuntoVenditaResource();
+//			
+//			pvr.setNomeAzienda(puntoVendita.getAzienda().getNomeAzienda());
+//			pvr.setCitta(puntoVendita.getCitta());
+//			pvr.setNomePuntoVendita(puntoVendita.getNomePuntoVendita());
+//			pvr.setRegione(puntoVendita.getRegione());
+//			
+//			listPuntiVendita.add(pvr);
+//		}
+//
+//		return listPuntiVendita;
+//
+//	}
 
 	@Override
 	public String toString() {

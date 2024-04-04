@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import com.supermarket.fedelity.card.dto.ErrorResource;
-import com.supermarket.fedelity.card.dto.FedelityCardResource;
-import com.supermarket.fedelity.card.entity.ErrorEntity;
+import com.supermarket.fedelity.card.dto.request.FedelityCardRequest;
 import com.supermarket.fedelity.card.entity.FedelityCard;
 import com.supermarket.fedelity.card.jpa.PuntoVenditaRepository;
 
@@ -22,52 +20,36 @@ public class FedelityCardFactory {
 	@Autowired
 	private PuntoVenditaRepository puntoVenditaRepository;
 
-	public FedelityCardResource entityToResource(FedelityCard card) {
+	public FedelityCardRequest entityToRequest(FedelityCard card) throws Exception { // TODO to response not request
 
-		FedelityCardResource resource = new FedelityCardResource();
+		FedelityCardRequest request = new FedelityCardRequest();
 
 		if (null == card) {
-			resource.setError(new ErrorResource());
-			resource.getError().setError("record not found 404");
-			resource.getError().setDescription("no comment");
-		} else if (null != card.getError()) { // se record in errore setto solo quest'ultimo
-			if(!"".equalsIgnoreCase(card.getError().getError())) {
-				resource.setError(new ErrorResource());
-				resource.getError().setError(card.getError().getError());
-				resource.getError().setDescription(card.getError().getDescription());
-			}
+			throw new Exception();
 		} else {
 
 			if (null != card.getClienti() || !card.getClienti().isEmpty()) {
-				resource.setCliente(clienteFactory.entityToResource(card.getClienti()));
+				request.setCliente(clienteFactory.entityToRequest(card.getClienti()));
 			}
-			resource.setDataCreazioneTessera(null != card.getDataCreazioneTessera() ? card.getDataCreazioneTessera().toString() : null);
-			resource.setPuntoVenditaNome(card.getPuntoVendita().get(0).getNomePuntoVendita());
-			resource.setNumeroTessera(card.getNumeroTessera());
-			resource.setPunti(card.getPunti());
+			request.setDataCreazioneTessera(null != card.getDataCreazioneTessera() ? card.getDataCreazioneTessera().toString() : null);
+			request.setPuntoVenditaNome(card.getPuntoVendita().get(0).getNomePuntoVendita());
+			request.setNumeroTessera(card.getNumeroTessera());
+			request.setPunti(card.getPunti());
 		}
 
-		return resource;
+		return request;
 	}
 	
-	public FedelityCard resourceToEntity(FedelityCardResource card) {
+	public FedelityCard requestToEntity(FedelityCardRequest card) throws Exception {
 
 		FedelityCard entity = new FedelityCard();
 		
 		if (null == card) {
-			entity.setError(new ErrorEntity());
-			entity.getError().setError("record not found 404");
-			entity.getError().setDescription("no comment");
-		} else if (null != card.getError()) {
-				if(!"".equalsIgnoreCase(card.getError().getError())) { // se record in errore setto solo quest'ultimo
-				entity.setError(new ErrorEntity());
-				entity.getError().setError(card.getError().getError());
-				entity.getError().setDescription(card.getError().getDescription());
-				}
+			throw new Exception();
 		} else {
 
 //			if (null != card.getClienti() || !card.getClienti().isEmpty()) {
-//				resource.setCliente(card.getClienti().get(0).clienteToResource(card.getClienti()));
+//				request.setCliente(card.getClienti().get(0).clienteToRequest(card.getClienti()));
 //			}
 			entity.setDataCreazioneTessera(null != card.getDataCreazioneTessera() ? OffsetDateTime.parse(card.getDataCreazioneTessera()) : null);
 //			entity.setPuntoVendita(card.getPuntoVendita().get(0).getNomePuntoVendita()); // TODO

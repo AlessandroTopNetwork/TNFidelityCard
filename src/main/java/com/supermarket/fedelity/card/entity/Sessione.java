@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 public class Sessione {
 
 	@Id
+	@Column(name = "id_sessione_acquisto")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 

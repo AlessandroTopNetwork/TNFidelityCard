@@ -2,14 +2,14 @@ package com.supermarket.fedelity.card.serviceinterface;
 
 import java.util.List;
 
-import com.supermarket.fedelity.card.dto.ClienteResource;
+import com.supermarket.fedelity.card.dto.request.ClienteRequest;
 
 public interface ServiceCliente {
 	
-	List<ClienteResource> getListClienti() throws Exception;
+	List<ClienteRequest> getListClienti() throws Exception;
 	
-	ClienteResource createCliente(ClienteResource cliente) throws Exception;
+	ClienteRequest createCliente(ClienteRequest cliente) throws Exception;
 	
-	ClienteResource findById(long id) throws Exception;
+	ClienteRequest findById(long id) throws Exception;
 
 }

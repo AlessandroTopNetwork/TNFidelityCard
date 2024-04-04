@@ -3,14 +3,15 @@ package com.supermarket.fedelity.card.factory;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.supermarket.fedelity.card.dto.ClienteResource;
-import com.supermarket.fedelity.card.dto.ErrorResource;
+import com.supermarket.fedelity.card.dto.request.ClienteRequest;
 import com.supermarket.fedelity.card.entity.Cliente;
-import com.supermarket.fedelity.card.entity.ErrorEntity;
+import com.supermarket.fedelity.card.entity.TipoCliente;
+import com.supermarket.fedelity.card.jpa.TipoClienteJPARepository;
 
 import io.micrometer.common.util.StringUtils;
 
@@ -19,77 +20,72 @@ public class ClienteFactory {
 
 	@Autowired
 	private FedelityCardFactory fedelityCardFactory;
+	
+	@Autowired
+	private TipoClienteJPARepository tipoClienteRepository;
 
-	public ClienteResource entityToResource(Cliente cliente) {
+	public ClienteRequest entityToRequest(Cliente cliente) throws Exception {
 
-		ClienteResource clienteResource = new ClienteResource();
+		ClienteRequest clienteRequest = new ClienteRequest();
 		if (null == cliente) {
-			clienteResource.setError(new ErrorResource());
-			clienteResource.getError().setError("record not found 404");
-			clienteResource.getError().setDescription("no comment");
-		} else if (null != cliente.getError()) { // se record in errore setto solo quest'ultimo
-			if (!"".equalsIgnoreCase(cliente.getError().getError())) {
-				clienteResource.setError(new ErrorResource());
-				clienteResource.getError().setError(cliente.getError().getError());
-				clienteResource.getError().setDescription(cliente.getError().getDescription());
-			}
+			throw new Exception();
 		} else {
-			clienteResource.setNome(cliente.getNome());
-			clienteResource.setCognome(cliente.getCognome());
-			clienteResource.setDataTesseramento(null !=cliente.getDataTesseramento() ? cliente.getDataTesseramento().toString() : null);
-			clienteResource.setEmail(cliente.getEmail());
-			clienteResource.setFedelityCard(fedelityCardFactory.entityToResource(cliente.getFedelityCard()));
-			clienteResource.setIndirizzo(cliente.getIndirizzo());
-			clienteResource.setNumeroTelefono(cliente.getNumeroTelefono());
-			clienteResource.setNumeroTessera(cliente.getNumeroTessera());
-			clienteResource.setStoriciAcquisti(cliente.getStoriciAcquisti());
+			clienteRequest.setNome(cliente.getNome());
+			clienteRequest.setCognome(cliente.getCognome());
+			clienteRequest.setDataTesseramento(null !=cliente.getDataTesseramento() ? cliente.getDataTesseramento().toString() : null);
+			clienteRequest.setEmail(cliente.getEmail());
+			clienteRequest.setFedelityCard(fedelityCardFactory.entityToRequest(cliente.getFedelityCard()));
+			clienteRequest.setIndirizzo(cliente.getIndirizzo());
+			clienteRequest.setNumeroTelefono(cliente.getNumeroTelefono());
+			clienteRequest.setNumeroTessera(cliente.getNumeroTessera());
+			clienteRequest.setStoriciAcquisti(cliente.getStoriciAcquisti());
 		}
 
-		return clienteResource;
+		return clienteRequest;
 
 	}
 
-	public List<ClienteResource> entityToResource(List<Cliente> clienti) {
+	public List<ClienteRequest> entityToRequest(List<Cliente> clienti) throws Exception {
 
-		List<ClienteResource> listClienteResource = new ArrayList<ClienteResource>();
+		List<ClienteRequest> listClienteRequest = new ArrayList<ClienteRequest>();
 
 		for (Cliente cliente : clienti) {
-			listClienteResource.add(entityToResource(cliente));
+			listClienteRequest.add(entityToRequest(cliente));
 		}
 
-		return listClienteResource;
+		return listClienteRequest;
 
 	}
 
-	public Cliente resourceToEntity(ClienteResource clienteResource) {
+	public Cliente requestToEntity(ClienteRequest clienteRequest) throws Exception {
 		Cliente cliente = new Cliente();
-		if (null == clienteResource || null != clienteResource.getError()) { // se record in errore setto solo
-																				// quest'ultimo
-			if (!"".equalsIgnoreCase(clienteResource.getError().getError())) {
-				cliente.setError(new ErrorEntity());
-				cliente.getError().setError(clienteResource.getError().getError());
-				cliente.getError().setDescription(clienteResource.getError().getDescription());
-			}
+		if (null == clienteRequest) {
+			throw new Exception();
 		} else {
-			cliente.setNome(clienteResource.getNome());
-			cliente.setCognome(clienteResource.getCognome());
-			cliente.setDataTesseramento(StringUtils.isNotEmpty(clienteResource.getDataTesseramento()) ? OffsetDateTime.parse(clienteResource.getDataTesseramento()) : null);
-			cliente.setEmail(clienteResource.getEmail());
-			cliente.setFedelityCard(fedelityCardFactory.resourceToEntity(clienteResource.getFedelityCard()));
-			cliente.setIndirizzo(clienteResource.getIndirizzo());
-			cliente.setNumeroTelefono(clienteResource.getNumeroTelefono());
-			cliente.setNumeroTessera(clienteResource.getNumeroTessera());
-			cliente.setStoriciAcquisti(clienteResource.getStoriciAcquisti());
+			cliente.setNome(clienteRequest.getNome());
+			cliente.setCognome(clienteRequest.getCognome());
+			cliente.setDataTesseramento(StringUtils.isNotEmpty(clienteRequest.getDataTesseramento()) ? OffsetDateTime.parse(clienteRequest.getDataTesseramento()) : null);
+			cliente.setEmail(clienteRequest.getEmail());
+			cliente.setFedelityCard(fedelityCardFactory.requestToEntity(clienteRequest.getFedelityCard()));
+			cliente.setIndirizzo(clienteRequest.getIndirizzo());
+			cliente.setNumeroTelefono(clienteRequest.getNumeroTelefono());
+			cliente.setNumeroTessera(clienteRequest.getNumeroTessera());
+			cliente.setStoriciAcquisti(clienteRequest.getStoriciAcquisti());
+			Optional<TipoCliente> tipoCliente = tipoClienteRepository.findByTipoCliente(clienteRequest.getTipoCliente().name());
+			if(tipoCliente.isPresent()) {
+				cliente.setTipoCliente(tipoCliente.get());
+			}
+			
 		}
 		return cliente;
 	}
 
-	public List<Cliente> resourceToEntity(List<ClienteResource> clienti) {
+	public List<Cliente> requestToEntity(List<ClienteRequest> clienti) throws Exception {
 
 		List<Cliente> listCr = new ArrayList<Cliente>();
 
-		for (ClienteResource clienteResource : clienti) {
-			listCr.add(resourceToEntity(clienteResource));
+		for (ClienteRequest clienteRequest : clienti) {
+			listCr.add(requestToEntity(clienteRequest));
 		}
 
 		return listCr;
