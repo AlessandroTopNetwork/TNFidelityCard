@@ -34,7 +34,7 @@ public class ClienteFactory {
 			clienteRequest.setCognome(cliente.getCognome());
 			clienteRequest.setDataTesseramento(null !=cliente.getDataTesseramento() ? cliente.getDataTesseramento().toString() : null);
 			clienteRequest.setEmail(cliente.getEmail());
-			clienteRequest.setFedelityCard(fedelityCardFactory.entityToRequest(cliente.getFedelityCard()));
+			clienteRequest.setFedelityCard(fedelityCardFactory.entityToRequest(cliente.getCartaFedelta()));
 			clienteRequest.setIndirizzo(cliente.getIndirizzo());
 			clienteRequest.setNumeroTelefono(cliente.getNumeroTelefono());
 			clienteRequest.setNumeroTessera(cliente.getNumeroTessera());
@@ -66,7 +66,7 @@ public class ClienteFactory {
 			cliente.setCognome(clienteRequest.getCognome());
 			cliente.setDataTesseramento(StringUtils.isNotEmpty(clienteRequest.getDataTesseramento()) ? OffsetDateTime.parse(clienteRequest.getDataTesseramento()) : null);
 			cliente.setEmail(clienteRequest.getEmail());
-			cliente.setFedelityCard(fedelityCardFactory.requestToEntity(clienteRequest.getFedelityCard()));
+			cliente.setCartaFedelta(fedelityCardFactory.requestToEntity(clienteRequest.getFedelityCard()));
 			cliente.setIndirizzo(clienteRequest.getIndirizzo());
 			cliente.setNumeroTelefono(clienteRequest.getNumeroTelefono());
 			cliente.setNumeroTessera(clienteRequest.getNumeroTessera());

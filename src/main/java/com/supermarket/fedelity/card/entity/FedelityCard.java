@@ -14,6 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -40,9 +42,13 @@ public class FedelityCard extends BaseEntity {
 	@JsonBackReference
 	private List<Cliente> clienti;
 
-	@OneToMany
-	@JoinColumn(name = "punto_vendita_id")
-	private List<PuntoVendita> puntoVendita;
+	@ManyToMany
+	@JoinTable(
+			name = "punto_vendita",
+			joinColumns = @JoinColumn(name = "id_punto_vendita"),
+			inverseJoinColumns = @JoinColumn(name = "punto_vendita_id")
+			)
+	private List<PuntoVendita> puntiVendita;
 
 	public FedelityCard() {
 	}
@@ -98,19 +104,19 @@ public class FedelityCard extends BaseEntity {
 		this.clienti = clienti;
 	}
 
-	public List<PuntoVendita> getPuntoVendita() {
-		return puntoVendita;
+	public List<PuntoVendita> getPuntiVendita() {
+		return puntiVendita;
 	}
 
-	public void setPuntoVendita(List<PuntoVendita> puntoVendita) {
-		this.puntoVendita = puntoVendita;
+	public void setPuntiVendita(List<PuntoVendita> puntiVendita) {
+		this.puntiVendita = puntiVendita;
 	}
 
 	@Override
 	public String toString() {
 		return "FedelityCard [id=" + id + ", numeroTessera=" + numeroTessera + ", dataCreazioneTessera="
 				+ dataCreazioneTessera + ", punti=" + punti + ", clienti= [" + clienti + "], idPuntoVendita="
-				+ puntoVendita + "]";
+				+ puntiVendita + "]";
 	}
 
 }

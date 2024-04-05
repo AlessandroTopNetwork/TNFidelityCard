@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.supermarket.fedelity.card.dto.request.FedelityCardRequest;
 import com.supermarket.fedelity.card.entity.FedelityCard;
@@ -28,11 +29,13 @@ public class FedelityCardFactory {
 			throw new Exception();
 		} else {
 
-			if (null != card.getClienti() || !card.getClienti().isEmpty()) {
-				request.setCliente(clienteFactory.entityToRequest(card.getClienti()));
-			}
+//			if (null != card.getClienti() || !card.getClienti().isEmpty()) {
+//				request.setCliente(clienteFactory.entityToRequest(card.getClienti()));
+//			}
 			request.setDataCreazioneTessera(null != card.getDataCreazioneTessera() ? card.getDataCreazioneTessera().toString() : null);
-			request.setPuntoVenditaNome(card.getPuntoVendita().get(0).getNomePuntoVendita());
+			System.out.println("ciao : " + CollectionUtils.isEmpty(card.getPuntiVendita()));
+			if(!CollectionUtils.isEmpty(card.getPuntiVendita()))
+				request.setPuntoVenditaNome(card.getPuntiVendita().get(0).getNomePuntoVendita());
 			request.setNumeroTessera(card.getNumeroTessera());
 			request.setPunti(card.getPunti());
 		}

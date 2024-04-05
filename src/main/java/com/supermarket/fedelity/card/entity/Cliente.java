@@ -48,7 +48,7 @@ public class Cliente extends BaseEntity {
 	
     @ManyToOne
     @JoinColumn(name = "carta_fedelta_id")
-    private FedelityCard fedelityCard;
+    private FedelityCard cartaFedelta;
     
     @OneToMany
     @JoinColumn(name = "id_acquisti")
@@ -145,12 +145,12 @@ public class Cliente extends BaseEntity {
 		this.storiciAcquisti = storiciAcquisti;
 	}
 	
-	public FedelityCard getFedelityCard() {
-		return fedelityCard;
+	public FedelityCard getCartaFedelta() {
+		return cartaFedelta;
 	}
 
-	public void setFedelityCard(FedelityCard fedelityCard) {
-		this.fedelityCard = fedelityCard;
+	public void setCartaFedelta(FedelityCard cartaFedelta) {
+		this.cartaFedelta = cartaFedelta;
 	}
 
 	public List<Acquisto> getAcquisti() {

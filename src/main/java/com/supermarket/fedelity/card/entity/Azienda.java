@@ -29,9 +29,9 @@ public class Azienda extends BaseEntity {
     @Column(name = "citta")
     private String citta;
 
-    @OneToMany
-    @JoinColumn(name = "punto_vendita_id")
-    private List<PuntoVendita> puntiVendita;
+//    @OneToMany
+//    @JoinColumn(name = "punto_vendita_id")
+//    private List<PuntoVendita> puntiVendita;
 
     public Long getIdAzienda() {
         return idAzienda;
@@ -65,13 +65,13 @@ public class Azienda extends BaseEntity {
         this.citta = citta;
     }
 
-    public List<PuntoVendita> getPuntoVendita() {
-        return puntiVendita;
-    }
-
-    public void setPuntoVendita(List<PuntoVendita> puntoVendita) {
-        this.puntiVendita = puntoVendita;
-    }
+//    public List<PuntoVendita> getPuntoVendita() {
+//        return puntiVendita;
+//    }
+//
+//    public void setPuntoVendita(List<PuntoVendita> puntoVendita) {
+//        this.puntiVendita = puntoVendita;
+//    }
     
 //    public AziendaResource aziendaToResource(Azienda a) {
 //    	
@@ -90,6 +90,6 @@ public class Azienda extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Azienda [idAzienda=" + idAzienda + ", nomeAzienda=" + nomeAzienda + ", regione=" + regione + ", citta=" + citta + ", puntoVendita=" + puntiVendita + "]";
+        return "Azienda [idAzienda=" + idAzienda + ", nomeAzienda=" + nomeAzienda + ", regione=" + regione + ", citta=" + citta + "]";
     }
 }

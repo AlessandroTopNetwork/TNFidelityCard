@@ -30,6 +30,11 @@ public class Controller { // controller masetr crud of consumer and affliate car
 		return serviceCliente.findById(id);
 	}
 	
+	@GetMapping(value = "/consumers/{numeroTessera}")
+	public List<ClienteRequest> getConsumerAndCardByIdCard(@PathVariable String numeroTessera) throws Exception {
+		return serviceCliente.getListClientiFindByNumeroCarta(numeroTessera);
+	}
+	
 	@PostMapping(value = "/consumer")
 	public ClienteRequest registerCard(@RequestBody ClienteRequest cliente) throws Exception {
 		return serviceCliente.createCliente(cliente);

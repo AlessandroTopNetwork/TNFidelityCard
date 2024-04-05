@@ -1,5 +1,7 @@
 package com.supermarket.fedelity.card.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -8,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -16,7 +19,7 @@ import jakarta.persistence.Table;
 public class PuntoVendita extends BaseEntity {
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "id_punto_vendita")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPuntoVendita;
 
@@ -30,9 +33,12 @@ public class PuntoVendita extends BaseEntity {
 	private String regione;
 
 	@ManyToOne
-	@JoinColumn(name = "id_azienda")
+	@JoinColumn(name = "azienda_id")
 	@JsonBackReference
 	private Azienda azienda;
+	
+   @ManyToMany(mappedBy = "puntiVendita")
+    private List<FedelityCard> carteFedelta;
 
 	public Long getIdPuntoVendita() {
 		return idPuntoVendita;
@@ -74,25 +80,13 @@ public class PuntoVendita extends BaseEntity {
 		this.azienda = azienda;
 	}
 
-//	public List<PuntoVenditaResource> puntoVenditaToResource(List<PuntoVendita> puntiVenditaList) {
-//
-//		List<PuntoVenditaResource> listPuntiVendita = new ArrayList<PuntoVenditaResource>();
-//
-//		for (PuntoVendita puntoVendita : puntiVenditaList) {
-//			
-//			PuntoVenditaResource pvr = new PuntoVenditaResource();
-//			
-//			pvr.setNomeAzienda(puntoVendita.getAzienda().getNomeAzienda());
-//			pvr.setCitta(puntoVendita.getCitta());
-//			pvr.setNomePuntoVendita(puntoVendita.getNomePuntoVendita());
-//			pvr.setRegione(puntoVendita.getRegione());
-//			
-//			listPuntiVendita.add(pvr);
-//		}
-//
-//		return listPuntiVendita;
-//
-//	}
+	public List<FedelityCard> getCarteFedelta() {
+		return carteFedelta;
+	}
+
+	public void setCarteFedelta(List<FedelityCard> carteFedelta) {
+		this.carteFedelta = carteFedelta;
+	}
 
 	@Override
 	public String toString() {

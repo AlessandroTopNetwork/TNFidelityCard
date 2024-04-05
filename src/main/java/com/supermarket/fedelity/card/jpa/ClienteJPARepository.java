@@ -12,6 +12,8 @@ public interface ClienteJPARepository extends JpaRepository<Cliente, Long>{
 	
 	List<Cliente> findAll();
 	
+	List<Cliente> findByCartaFedeltaNumeroTessera(String numeroTessera);
+	
 	Cliente findById(long id);
 
 }
