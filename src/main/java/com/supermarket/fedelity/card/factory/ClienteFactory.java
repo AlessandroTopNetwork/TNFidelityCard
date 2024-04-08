@@ -75,6 +75,7 @@ public class ClienteFactory {
 			if(tipoCliente.isPresent()) {
 				cliente.setTipoCliente(tipoCliente.get());
 			}
+			cliente.setDataTesseramento(OffsetDateTime.now());
 			
 		}
 		return cliente;

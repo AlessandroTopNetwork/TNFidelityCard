@@ -80,7 +80,6 @@ CREATE TABLE IF NOT EXISTS `tipologia_azienda` (
     -- FOREIGN KEY (punto_vendita_id) REFERENCES punto_vandita(id)
 );
 
-
 -- Creazione della tabella "punto_vedinta"
 CREATE TABLE IF NOT EXISTS `punto_vendita`(
     `id_punto_vendita` bigint AUTO_INCREMENT PRIMARY KEY,
@@ -93,6 +92,18 @@ CREATE TABLE IF NOT EXISTS `punto_vendita`(
     FOREIGN KEY (azienda_id) REFERENCES azienda(id_azienda),
     CONSTRAINT fk_tipologia_azienda_punto_vendita
     FOREIGN KEY (tipologia_azienda_id) REFERENCES tipologia_azienda(id_tipologia_azienda)
+);
+
+-- Creazione della tabella "raccordo_carta_fedelta_punto_vendita" per correlazione manytomany
+CREATE TABLE IF NOT EXISTS `raccordo_carta_fedelta_punto_vendita`(
+    `id_raccordo_carta_fedelta_punto_vendita` bigint AUTO_INCREMENT PRIMARY KEY,
+    `carta_fedelta_racc_id` bigint NOT NULL,
+    `punto_vendita_racc_id` bigint NOT NULL,
+    PRIMARY KEY(`carta_fedelta_racc_id`, `punto_vendita_racc_id`),
+    CONSTRAINT fk_carta_fedelta_racc_id
+    FOREIGN KEY (carta_fedelta_racc_id) REFERENCES carta_fedelta(id_carta_fedelta),
+    CONSTRAINT fk_punto_vendita_racc_id
+    FOREIGN KEY (punto_vendita_racc_id) REFERENCES punto_vedinta(id_punto_vendita)
 );
 
 -- add costrain customer (fedelity_card)

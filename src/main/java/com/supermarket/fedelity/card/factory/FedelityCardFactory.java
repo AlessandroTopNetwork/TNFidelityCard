@@ -33,9 +33,9 @@ public class FedelityCardFactory {
 //				request.setCliente(clienteFactory.entityToRequest(card.getClienti()));
 //			}
 			request.setDataCreazioneTessera(null != card.getDataCreazioneTessera() ? card.getDataCreazioneTessera().toString() : null);
-			System.out.println("ciao : " + CollectionUtils.isEmpty(card.getPuntiVendita()));
-			if(!CollectionUtils.isEmpty(card.getPuntiVendita()))
-				request.setPuntoVenditaNome(card.getPuntiVendita().get(0).getNomePuntoVendita());
+//			System.out.println("ciao : " + CollectionUtils.isEmpty(card.getPuntiVendita()));
+//			if(!CollectionUtils.isEmpty(card.getPuntiVendita()))
+//				request.setPuntoVenditaNome(card.getPuntiVendita().get(0).getNomePuntoVendita());
 			request.setNumeroTessera(card.getNumeroTessera());
 			request.setPunti(card.getPunti());
 		}
@@ -58,6 +58,7 @@ public class FedelityCardFactory {
 //			entity.setPuntoVendita(card.getPuntoVendita().get(0).getNomePuntoVendita()); // TODO
 			entity.setNumeroTessera(card.getNumeroTessera());
 			entity.setPunti(card.getPunti());
+			entity.setDataCreazioneTessera(OffsetDateTime.now());
 		}
 
 		return entity;

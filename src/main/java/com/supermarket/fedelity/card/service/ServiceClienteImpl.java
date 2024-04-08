@@ -38,8 +38,6 @@ public class ServiceClienteImpl extends BaseService implements ServiceCliente {
 	public ClienteRequest createCliente(ClienteRequest clienteRequest) throws Exception {
 		log.info("call createCliente");
 		Cliente cliente = clienteFactory.requestToEntity(clienteRequest); // convert request from end point to entity
-		cliente.setDataTesseramento(OffsetDateTime.now());
-		cliente.getCartaFedelta().setDataCreazioneTessera(OffsetDateTime.now());
 		fedelityCardRepository.save(cliente.getCartaFedelta());
 		clienteRepository.save(cliente);
 		cliente.getCartaFedelta().getClienti().add(cliente); // add un nuovo cliente alla lista già esistente

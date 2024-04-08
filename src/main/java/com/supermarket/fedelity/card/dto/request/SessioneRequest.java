@@ -1,6 +1,6 @@
 //package com.supermarket.fedelity.card.dto;
 //
-//public class SessioneResource extends BaseResource { // da non mandare fuori con gli end point suppongo
+//public class SessioneRequest extends BaseResource { // da non mandare fuori con gli end point suppongo
 //	
 //	private String dataInizio;
 //	private String dataFine;
@@ -37,5 +37,7 @@
 //	}
 //	
 //}
+
+
 
 

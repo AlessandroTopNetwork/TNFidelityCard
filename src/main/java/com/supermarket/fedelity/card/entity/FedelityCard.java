@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.supermarket.fedelity.card.entity.tabraccordo.RaccordoCartaPuntoVendita;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,24 +43,16 @@ public class FedelityCard extends BaseEntity {
 	@JsonBackReference
 	private List<Cliente> clienti;
 
-	@ManyToMany
-	@JoinTable(
-			name = "punto_vendita",
-			joinColumns = @JoinColumn(name = "id_punto_vendita"),
-			inverseJoinColumns = @JoinColumn(name = "punto_vendita_id")
-			)
-	private List<PuntoVendita> puntiVendita;
-
-	public FedelityCard() {
-	}
-
-//	public FedelityCard(long id, String numeroTessera, long punti, List<PuntoVendita> puntoVendita) { // only test
-//		this.id = id;
-//		this.numeroTessera = numeroTessera;
-////		this.dataCreazioneTessera = dataCreazioneTessera;
-//		this.punti = punti;
-//		this.puntoVendita = puntoVendita;
-//	}
+//	@ManyToMany
+//	@JoinTable( // tab di raccordo
+//			name = "raccordo_carta_fedelta_punto_vendita",
+//			joinColumns = @JoinColumn(name = "id_carta_fedelta_racc"),
+//			inverseJoinColumns = @JoinColumn(name = "id_punto_vendita_racc")
+//			)
+//	private List<PuntoVendita> puntiVendita;
+	
+	@OneToMany(mappedBy = "puntoVendita")
+    private List<RaccordoCartaPuntoVendita> raccordiPuntoVendita;
 
 	public long getId() {
 		return id;
@@ -104,19 +97,19 @@ public class FedelityCard extends BaseEntity {
 		this.clienti = clienti;
 	}
 
-	public List<PuntoVendita> getPuntiVendita() {
-		return puntiVendita;
+	public List<RaccordoCartaPuntoVendita> getRaccordiPuntoVendita() {
+		return raccordiPuntoVendita;
 	}
 
-	public void setPuntiVendita(List<PuntoVendita> puntiVendita) {
-		this.puntiVendita = puntiVendita;
+	public void setRaccordiPuntoVendita(List<RaccordoCartaPuntoVendita> raccordiPuntoVendita) {
+		this.raccordiPuntoVendita = raccordiPuntoVendita;
 	}
 
 	@Override
 	public String toString() {
 		return "FedelityCard [id=" + id + ", numeroTessera=" + numeroTessera + ", dataCreazioneTessera="
-				+ dataCreazioneTessera + ", punti=" + punti + ", clienti= [" + clienti + "], idPuntoVendita="
-				+ puntiVendita + "]";
+				+ dataCreazioneTessera + ", punti=" + punti + ", clienti=" + clienti + ", raccordiPuntoVendita="
+				+ raccordiPuntoVendita + "]";
 	}
 
 }

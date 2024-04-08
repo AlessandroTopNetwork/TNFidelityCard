@@ -3,6 +3,7 @@ package com.supermarket.fedelity.card.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.supermarket.fedelity.card.entity.tabraccordo.RaccordoCartaPuntoVendita;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -37,8 +38,8 @@ public class PuntoVendita extends BaseEntity {
 	@JsonBackReference
 	private Azienda azienda;
 	
-   @ManyToMany(mappedBy = "puntiVendita")
-    private List<FedelityCard> carteFedelta;
+	@OneToMany(mappedBy = "cartaFedelta")
+    private List<RaccordoCartaPuntoVendita> raccordiCarta;
 
 	public Long getIdPuntoVendita() {
 		return idPuntoVendita;
@@ -80,12 +81,28 @@ public class PuntoVendita extends BaseEntity {
 		this.azienda = azienda;
 	}
 
-	public List<FedelityCard> getCarteFedelta() {
-		return carteFedelta;
+//	public List<FedelityCard> getCarteFedelta() {
+//		List<FedelityCard> listCard = new ArrayList<FedelityCard>();
+//		for(RaccordoCartaPuntoVendita raccordo : raccordiCarta) {
+//			listCard.add(raccordo.getCartaFedelta());
+//		}
+//		return listCard;
+//	}
+//
+//	public void setCarteFedelta(List<FedelityCard> raccordiCarta) {
+//		List<FedelityCard> listCard = new ArrayList<FedelityCard>();
+//		for(RaccordoCartaPuntoVendita raccordo : raccordiCarta) {
+//			listCard.add(raccordo.getCartaFedelta());
+//		}
+//		this.raccordiCarta = raccordiCarta;
+//	}
+
+	public List<RaccordoCartaPuntoVendita> getRaccordiCarta() {
+		return raccordiCarta;
 	}
 
-	public void setCarteFedelta(List<FedelityCard> carteFedelta) {
-		this.carteFedelta = carteFedelta;
+	public void setRaccordiCarta(List<RaccordoCartaPuntoVendita> raccordiCarta) {
+		this.raccordiCarta = raccordiCarta;
 	}
 
 	@Override
