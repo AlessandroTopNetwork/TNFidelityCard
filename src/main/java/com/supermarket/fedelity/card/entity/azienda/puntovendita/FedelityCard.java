@@ -33,10 +33,10 @@ public class FedelityCard {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "Numero_tessera", nullable = false)
+	@Column(name = "numero_tessera", nullable = false)
 	private String numeroTessera;
 
-	@Column(name = "Data_di_creazione_tessera")
+	@Column(name = "data_di_creazione_tessera")
 	private OffsetDateTime dataCreazioneTessera;
 
 	@Column(name = "punti")
@@ -48,7 +48,7 @@ public class FedelityCard {
 	private List<Cliente> clienti;
 	
 	@ManyToOne
-	@JoinColumn(name = "punto_vendita_id") // collona sulla tab in essere
+	@JoinColumn(name = "punto_vendita_id") // collonna sulla tab in essere
     private PuntoVendita puntoVendita;
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.supermarket.fedelity.card.entity.azienda.Azienda;
+import com.supermarket.fedelity.card.entity.azienda.TipologiaAzienda;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,6 +41,9 @@ public class PuntoVendita {
 
 	@Column(name = "regione")
 	private String regione;
+	
+    @Column(name = "id_identifier")
+    private String idIdentifier;
 
 	@ManyToOne
 	@JoinColumn(name = "azienda_id")
@@ -48,5 +52,16 @@ public class PuntoVendita {
 	
 	@OneToMany(mappedBy = "puntoVendita") // variabile in FedelityCard che è la FOREIGN KEY su id punto vendita
     private List<FedelityCard> carteFedelta;
+	
+	@ManyToOne
+	@JoinColumn(name = "tipo_azienda_id")
+	private TipologiaAzienda tipoAzienda;
+
+	public void exampleBuilder() {
+		PuntoVendita p = PuntoVendita.builder()
+				.citta(null)
+				.tipoAzienda(null)
+				.build();
+	}
 
 }

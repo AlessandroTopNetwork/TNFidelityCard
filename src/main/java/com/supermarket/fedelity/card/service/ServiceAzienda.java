@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.serviceinterface;
+package com.supermarket.fedelity.card.service;
 
 import java.util.List;
 

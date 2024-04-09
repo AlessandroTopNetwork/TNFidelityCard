@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.supermarket.fedelity.card.dto.request.cliente.ClienteRequest;
-import com.supermarket.fedelity.card.serviceinterface.ServiceCliente;
+import com.supermarket.fedelity.card.service.ServiceCliente;
 
 @RestController
 @RequestMapping(value = "/customerservice")

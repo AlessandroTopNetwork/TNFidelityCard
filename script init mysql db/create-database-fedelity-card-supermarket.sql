@@ -134,13 +134,6 @@ FOREIGN KEY (tipo_cliente_id) REFERENCES tipo_cliente(id_tipo_cliente);
 -- ALTER TABLE azienda ADD CONSTRAINT fk_punto_vendita_azienda
 -- FOREIGN KEY (punto_vendita_id) REFERENCES punto_vendita(id_punto_vendita);
 
--- add costrain customer (azienda)
-
-ALTER TABLE azienda ADD COLUMN tipo_azienda_id bigint;
-
-ALTER TABLE azienda ADD CONSTRAINT fk_tipo_azienda_azienda
-FOREIGN KEY (tipo_azienda_id) REFERENCES azienda(id_azienda);
-
 -- add costrain carta_fedelta
 
 ALTER TABLE carta_fedelta ADD COLUMN punto_vendita_id bigint;

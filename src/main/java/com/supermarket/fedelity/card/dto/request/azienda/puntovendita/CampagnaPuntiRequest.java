@@ -3,49 +3,23 @@ package com.supermarket.fedelity.card.dto.request.azienda.puntovendita;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CampagnaPuntiRequest {
 
     private String nomeCampagna;
+    
     private OffsetDateTime dataInizio;
+    
     private OffsetDateTime dataFine;
+    
     private BigDecimal conversionePuntiEuro;
-
-	public String getNomeCampagna() {
-		return nomeCampagna;
-	}
-
-	public void setNomeCampagna(String nomeCampagna) {
-		this.nomeCampagna = nomeCampagna;
-	}
-
-	public OffsetDateTime getDataInizio() {
-		return dataInizio;
-	}
-
-	public void setDataInizio(OffsetDateTime dataInizio) {
-		this.dataInizio = dataInizio;
-	}
-
-	public OffsetDateTime getDataFine() {
-		return dataFine;
-	}
-
-	public void setDataFine(OffsetDateTime dataFine) {
-		this.dataFine = dataFine;
-	}
-
-	public BigDecimal getConversionePuntiEuro() {
-		return conversionePuntiEuro;
-	}
-
-	public void setConversionePuntiEuro(BigDecimal conversionePuntiEuro) {
-		this.conversionePuntiEuro = conversionePuntiEuro;
-	}
-
-	@Override
-	public String toString() {
-		return "CampagnaPuntiResource [nomeCampagna=" + nomeCampagna + ", dataInizio=" + dataInizio + ", dataFine="
-				+ dataFine + ", conversionePuntiEuro=" + conversionePuntiEuro + "]";
-	}
 
 }

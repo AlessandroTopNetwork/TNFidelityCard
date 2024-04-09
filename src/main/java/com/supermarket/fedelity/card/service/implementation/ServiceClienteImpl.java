@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.service;
+package com.supermarket.fedelity.card.service.implementation;
 
 import java.util.List;
 
@@ -10,7 +10,8 @@ import com.supermarket.fedelity.card.entity.cliente.Cliente;
 import com.supermarket.fedelity.card.factory.cliente.ClienteFactory;
 import com.supermarket.fedelity.card.jpa.azienda.puntovendita.FedelityCardJPARepository;
 import com.supermarket.fedelity.card.jpa.cliente.ClienteJPARepository;
-import com.supermarket.fedelity.card.serviceinterface.ServiceCliente;
+import com.supermarket.fedelity.card.service.BaseService;
+import com.supermarket.fedelity.card.service.ServiceCliente;
 
 @Service
 public class ServiceClienteImpl extends BaseService implements ServiceCliente {

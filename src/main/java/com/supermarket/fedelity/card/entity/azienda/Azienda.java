@@ -39,24 +39,9 @@ public class Azienda {
 
     @Column(name = "citta")
     private String citta;
-    
-    @Column(name = "citta2")
-    private String citta2;
 
     @OneToMany
     @JoinColumn(name = "punto_vendita_id")
     private List<PuntoVendita> puntiVendita;
-    
-    @ManyToOne
-    @JoinColumn(name = "tipo_azienda_id")
-    private TipologiaAzienda tipoCliente; // todo verso punto vendita
-    
-    public void exampleBuilder() {
-    	Azienda a = Azienda.builder()
-    			.citta(null)
-    			.tipoCliente(null)
-    			.citta2(null)
-    			.build();
-    }
 
 }

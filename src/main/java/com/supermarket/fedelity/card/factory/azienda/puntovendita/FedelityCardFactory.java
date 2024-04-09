@@ -10,7 +10,7 @@ import org.springframework.util.CollectionUtils;
 import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.FedelityCardRequest;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 import com.supermarket.fedelity.card.factory.cliente.ClienteFactory;
-import com.supermarket.fedelity.card.jpa.azienda.puntovendita.PuntoVenditaRepository;
+import com.supermarket.fedelity.card.jpa.azienda.puntovendita.PuntoVenditaJPARepository;
 
 @Component
 public class FedelityCardFactory {
@@ -20,7 +20,7 @@ public class FedelityCardFactory {
 	private ClienteFactory clienteFactory;
 	
 	@Autowired
-	private PuntoVenditaRepository puntoVenditaRepository;
+	private PuntoVenditaJPARepository puntoVenditaRepository;
 
 	public FedelityCardRequest entityToRequest(FedelityCard card) throws Exception { // TODO to response not request
 

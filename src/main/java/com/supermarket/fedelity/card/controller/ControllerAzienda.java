@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
 import com.supermarket.fedelity.card.entity.azienda.Azienda;
-import com.supermarket.fedelity.card.serviceinterface.ServiceAzienda;
+import com.supermarket.fedelity.card.service.ServiceAzienda;
 
 @RestController
 @RequestMapping(value = "/companyservice")

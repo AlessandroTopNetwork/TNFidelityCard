@@ -1,26 +1,18 @@
 package com.supermarket.fedelity.card.dto.request.azienda;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TipologiaAziendaRequest {
 
-	private String tipoCliente;
+	private String tipoAzienda;
 	
 	private String descrizione;
-	
-	public String getTipoCliente() {
-		return tipoCliente;
-	}
-	public void setTipoCliente(String tipoCliente) {
-		this.tipoCliente = tipoCliente;
-	}
-	public String getDescrizione() {
-		return descrizione;
-	}
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-	@Override
-	public String toString() {
-		return "TipologiaAziendaRequest [tipoCliente=" + tipoCliente + ", descrizione=" + descrizione + "]";
-	}
 
 }

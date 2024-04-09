@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.service;
+package com.supermarket.fedelity.card.service.implementation;
 
 import java.util.List;
 
@@ -10,7 +10,8 @@ import com.supermarket.fedelity.card.entity.azienda.Azienda;
 import com.supermarket.fedelity.card.factory.azienda.AziendaFactory;
 import com.supermarket.fedelity.card.jpa.azienda.AziendaJPARepository;
 import com.supermarket.fedelity.card.jpa.azienda.TipologiaAziendaJPARepository;
-import com.supermarket.fedelity.card.serviceinterface.ServiceAzienda;
+import com.supermarket.fedelity.card.service.BaseService;
+import com.supermarket.fedelity.card.service.ServiceAzienda;
 
 @Service
 public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
@@ -39,7 +40,7 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 	@Override
 	public CreazioneAziendaRequest createAzienda(CreazioneAziendaRequest aziendaResource) {
 		log.info("call createAzienda");
-		Azienda azienda = aziendaFactory.requestToEntity(aziendaResource); // convert request from end point to entity
+		Azienda azienda = aziendaFactory.resourceToEntity(aziendaResource); // convert request from end point to entity
 //		fedelityCardRepository.save(azienda.getCartaFedelta());
 		aziendaJpaRepository.save(azienda);
 		log.info("end createAzienda");
