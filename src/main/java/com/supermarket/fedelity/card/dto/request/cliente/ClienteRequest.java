@@ -1,6 +1,7 @@
-package com.supermarket.fedelity.card.dto.request;
+package com.supermarket.fedelity.card.dto.request.cliente;
 
-import com.supermarket.fedelity.card.entity.enumeration.TipologiaCliente;
+import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.FedelityCardRequest;
+import com.supermarket.fedelity.card.entity.enumeration.ETipologiaCliente;
 
 public class ClienteRequest {
 
@@ -13,7 +14,7 @@ public class ClienteRequest {
 	private String numeroTessera;
 	private String storiciAcquisti;
     private FedelityCardRequest fedelityCard;
-    private TipologiaCliente tipoCliente;
+    private ETipologiaCliente tipoCliente;
 
 	public String getNome() {
 		return nome;
@@ -87,11 +88,11 @@ public class ClienteRequest {
 		this.fedelityCard = fedelityCard;
 	}
 
-	public TipologiaCliente getTipoCliente() {
+	public ETipologiaCliente getTipoCliente() {
 		return tipoCliente;
 	}
 
-	public void setTipoCliente(TipologiaCliente tipoCliente) {
+	public void setTipoCliente(ETipologiaCliente tipoCliente) {
 		this.tipoCliente = tipoCliente;
 	}
 

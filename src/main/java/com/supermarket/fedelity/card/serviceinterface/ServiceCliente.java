@@ -2,7 +2,7 @@ package com.supermarket.fedelity.card.serviceinterface;
 
 import java.util.List;
 
-import com.supermarket.fedelity.card.dto.request.ClienteRequest;
+import com.supermarket.fedelity.card.dto.request.cliente.ClienteRequest;
 
 public interface ServiceCliente {
 	

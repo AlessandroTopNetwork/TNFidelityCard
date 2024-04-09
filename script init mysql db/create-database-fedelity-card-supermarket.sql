@@ -96,14 +96,21 @@ CREATE TABLE IF NOT EXISTS `punto_vendita`(
 
 -- Creazione della tabella "raccordo_carta_fedelta_punto_vendita" per correlazione manytomany
 CREATE TABLE IF NOT EXISTS `raccordo_carta_fedelta_punto_vendita`(
-    `id_raccordo_carta_fedelta_punto_vendita` bigint AUTO_INCREMENT PRIMARY KEY,
+    `id_raccordo_carta_fedelta_punto_vendita` bigint AUTO_INCREMENT,
     `carta_fedelta_racc_id` bigint NOT NULL,
     `punto_vendita_racc_id` bigint NOT NULL,
-    PRIMARY KEY(`carta_fedelta_racc_id`, `punto_vendita_racc_id`),
+    PRIMARY KEY(`id_raccordo_carta_fedelta_punto_vendita`,`carta_fedelta_racc_id`, `punto_vendita_racc_id`),
     CONSTRAINT fk_carta_fedelta_racc_id
     FOREIGN KEY (carta_fedelta_racc_id) REFERENCES carta_fedelta(id_carta_fedelta),
     CONSTRAINT fk_punto_vendita_racc_id
-    FOREIGN KEY (punto_vendita_racc_id) REFERENCES punto_vedinta(id_punto_vendita)
+    FOREIGN KEY (punto_vendita_racc_id) REFERENCES punto_vendita(id_punto_vendita)
+);
+
+-- Creazione della tabella "tipo_azienda"
+CREATE TABLE IF NOT EXISTS `tipo_azienda` (
+    `id_tipo_azienda` bigint AUTO_INCREMENT PRIMARY KEY,
+    `tipo_azienda` VARCHAR(100) NOT NULL,
+    `descrizione` text null
 );
 
 -- add costrain customer (fedelity_card)
@@ -122,10 +129,17 @@ FOREIGN KEY (tipo_cliente_id) REFERENCES tipo_cliente(id_tipo_cliente);
 
 -- add costrain customer (azienda)
 
-ALTER TABLE azienda ADD COLUMN punto_vendita_id bigint;
+-- ALTER TABLE azienda ADD COLUMN punto_vendita_id bigint;
 
-ALTER TABLE azienda ADD CONSTRAINT fk_punto_vendita_azienda
-FOREIGN KEY (punto_vendita_id) REFERENCES punto_vendita(id_punto_vendita);
+-- ALTER TABLE azienda ADD CONSTRAINT fk_punto_vendita_azienda
+-- FOREIGN KEY (punto_vendita_id) REFERENCES punto_vendita(id_punto_vendita);
+
+-- add costrain customer (azienda)
+
+ALTER TABLE azienda ADD COLUMN tipo_azienda_id bigint;
+
+ALTER TABLE azienda ADD CONSTRAINT fk_tipo_azienda_azienda
+FOREIGN KEY (tipo_azienda_id) REFERENCES azienda(id_azienda);
 
 -- add costrain carta_fedelta
 
@@ -141,4 +155,4 @@ FOREIGN KEY (punto_vendita_id) REFERENCES punto_vendita(id_punto_vendita);
 -- insert into type_of_consumer
 
 INSERT into `tipo_cliente` (`tipo_cliente`)
-VALUES ('BUSINESS'), ('CONSUMATORE');
+VALUES ('P_IVA'), ('CONSUMATORE');

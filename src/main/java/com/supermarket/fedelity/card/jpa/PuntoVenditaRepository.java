@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.supermarket.fedelity.card.entity.PuntoVendita;
+import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 
 public interface PuntoVenditaRepository extends JpaRepository<PuntoVendita, Long>{
 	

@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.supermarket.fedelity.card.dto.request.ClienteRequest;
+import com.supermarket.fedelity.card.dto.request.cliente.ClienteRequest;
 import com.supermarket.fedelity.card.serviceinterface.ServiceCliente;
 
 @RestController
-public class Controller { // controller masetr crud of consumer and affliate card
+@RequestMapping(value = "/customerservice")
+public class ControllerConsumer { // controller masetr crud of consumer and affliate card
 	
 	@Autowired
 	private ServiceCliente serviceCliente;

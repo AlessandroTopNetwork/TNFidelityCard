@@ -1,8 +1,8 @@
-package com.supermarket.fedelity.card.entity;
+package com.supermarket.fedelity.card.entity.cliente;
 
 import java.math.BigDecimal;
 
-import com.supermarket.fedelity.card.dto.request.AcquistoRequest;
+import com.supermarket.fedelity.card.dto.request.cliente.AcquistoRequest;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "acquisto")
-public class Acquisto extends BaseEntity {
+public class Acquisto {
 	
     @Id
 	@Column(name = "id_acquisto")

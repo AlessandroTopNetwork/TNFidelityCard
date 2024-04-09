@@ -1,6 +1,8 @@
-package com.supermarket.fedelity.card.dto.request;
+package com.supermarket.fedelity.card.dto.request.azienda;
 
 import java.util.List;
+
+import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVenditaRequest;
 
 public class AziendaRequest {
 

@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.supermarket.fedelity.card.dto.request.ClienteRequest;
-import com.supermarket.fedelity.card.entity.Cliente;
-import com.supermarket.fedelity.card.factory.ClienteFactory;
+import com.supermarket.fedelity.card.dto.request.cliente.ClienteRequest;
+import com.supermarket.fedelity.card.entity.cliente.Cliente;
+import com.supermarket.fedelity.card.factory.cliente.ClienteFactory;
 import com.supermarket.fedelity.card.jpa.ClienteJPARepository;
 import com.supermarket.fedelity.card.jpa.FedelityCardJPARepository;
 import com.supermarket.fedelity.card.serviceinterface.ServiceCliente;

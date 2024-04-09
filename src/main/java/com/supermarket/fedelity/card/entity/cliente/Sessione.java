@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.entity;
+package com.supermarket.fedelity.card.entity.cliente;
 
 import java.time.OffsetDateTime;
 

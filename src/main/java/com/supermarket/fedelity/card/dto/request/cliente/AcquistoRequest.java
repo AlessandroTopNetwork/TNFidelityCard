@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.dto.request;
+package com.supermarket.fedelity.card.dto.request.cliente;
 
 import java.math.BigDecimal;
 

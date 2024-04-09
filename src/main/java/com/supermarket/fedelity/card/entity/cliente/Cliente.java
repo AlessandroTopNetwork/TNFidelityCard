@@ -1,7 +1,9 @@
-package com.supermarket.fedelity.card.entity;
+package com.supermarket.fedelity.card.entity.cliente;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+
+import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente extends BaseEntity {
+public class Cliente {
 
 	@Id	
 	@Column(name = "id_cliente")
@@ -51,27 +53,12 @@ public class Cliente extends BaseEntity {
     private FedelityCard cartaFedelta;
     
     @OneToMany
-    @JoinColumn(name = "id_acquisti")
+    @JoinColumn(name = "acquisti_id")
     private List<Acquisto> acquisti;
     
     @ManyToOne
     @JoinColumn(name = "tipo_cliente_id")
-    private TipoCliente tipoCliente;
-    
-//    public Cliente() {}
-//
-//	public Cliente(long id, String nome, String cognome, String indirizzo, String numeroTelefono, String email,
-//			String numeroTessera, String storiciAcquisti, FedelityCard fedelityCard) { // only test
-//		this.id = id;
-//		this.nome = nome;
-//		this.cognome = cognome;
-//		this.indirizzo = indirizzo;
-//		this.numeroTelefono = numeroTelefono;
-//		this.email = email;
-//		this.numeroTessera = numeroTessera;
-//		this.storiciAcquisti = storiciAcquisti;
-//		this.fedelityCard = fedelityCard;
-//	}
+    private TipologiaCliente tipoCliente;
 
 	public long getId() {
 		return id;
@@ -144,7 +131,7 @@ public class Cliente extends BaseEntity {
 	public void setStoriciAcquisti(String storiciAcquisti) {
 		this.storiciAcquisti = storiciAcquisti;
 	}
-	
+
 	public FedelityCard getCartaFedelta() {
 		return cartaFedelta;
 	}
@@ -159,21 +146,22 @@ public class Cliente extends BaseEntity {
 
 	public void setAcquisti(List<Acquisto> acquisti) {
 		this.acquisti = acquisti;
-	}
+	}	
 
-	public TipoCliente getTipoCliente() {
+	public TipologiaCliente getTipoCliente() {
 		return tipoCliente;
 	}
 
-	public void setTipoCliente(TipoCliente tipoCliente) {
+	public void setTipoCliente(TipologiaCliente tipoCliente) {
 		this.tipoCliente = tipoCliente;
 	}
 
-//	public static void main(String[] args) {
-//		Gson gson = new Gson();
-//
-//		System.out.println(gson.toJson(new Cliente(0l, "a", "a", "a", "a", "a", "a", "a", new FedelityCard(0l, "a", 0l, 0l))));
-//		;
-//	}
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", indirizzo=" + indirizzo
+				+ ", numeroTelefono=" + numeroTelefono + ", email=" + email + ", dataTesseramento=" + dataTesseramento
+				+ ", numeroTessera=" + numeroTessera + ", storiciAcquisti=" + storiciAcquisti + ", cartaFedelta="
+				+ cartaFedelta + ", acquisti=" + acquisti + "]";
+	}
 
 }

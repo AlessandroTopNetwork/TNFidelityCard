@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.factory;
+package com.supermarket.fedelity.card.factory.cliente;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -8,9 +8,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.supermarket.fedelity.card.dto.request.ClienteRequest;
-import com.supermarket.fedelity.card.entity.Cliente;
-import com.supermarket.fedelity.card.entity.TipoCliente;
+import com.supermarket.fedelity.card.dto.request.cliente.ClienteRequest;
+import com.supermarket.fedelity.card.entity.cliente.Cliente;
+import com.supermarket.fedelity.card.entity.cliente.TipologiaCliente;
+import com.supermarket.fedelity.card.entity.enumeration.ETipologiaCliente;
+import com.supermarket.fedelity.card.factory.azienda.puntovendita.FedelityCardFactory;
 import com.supermarket.fedelity.card.jpa.TipoClienteJPARepository;
 
 import io.micrometer.common.util.StringUtils;
@@ -39,6 +41,7 @@ public class ClienteFactory {
 			clienteRequest.setNumeroTelefono(cliente.getNumeroTelefono());
 			clienteRequest.setNumeroTessera(cliente.getNumeroTessera());
 			clienteRequest.setStoriciAcquisti(cliente.getStoriciAcquisti());
+			clienteRequest.setTipoCliente(ETipologiaCliente.valueOf(cliente.getTipoCliente().getTipoCliente()));
 		}
 
 		return clienteRequest;
@@ -71,7 +74,7 @@ public class ClienteFactory {
 			cliente.setNumeroTelefono(clienteRequest.getNumeroTelefono());
 			cliente.setNumeroTessera(clienteRequest.getNumeroTessera());
 			cliente.setStoriciAcquisti(clienteRequest.getStoriciAcquisti());
-			Optional<TipoCliente> tipoCliente = tipoClienteRepository.findByTipoCliente(clienteRequest.getTipoCliente().name());
+			Optional<TipologiaCliente> tipoCliente = tipoClienteRepository.findByTipoCliente(clienteRequest.getTipoCliente().name());
 			if(tipoCliente.isPresent()) {
 				cliente.setTipoCliente(tipoCliente.get());
 			}

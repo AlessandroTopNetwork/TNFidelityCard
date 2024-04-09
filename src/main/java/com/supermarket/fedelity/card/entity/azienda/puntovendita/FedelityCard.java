@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.entity;
+package com.supermarket.fedelity.card.entity.azienda.puntovendita;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.supermarket.fedelity.card.entity.tabraccordo.RaccordoCartaPuntoVendita;
+import com.supermarket.fedelity.card.entity.cliente.Cliente;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +22,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "carta_fedelta")
-public class FedelityCard extends BaseEntity {
+public class FedelityCard {
 
 	@Id
 	@Column(name = "id_carta_fedelta")
@@ -43,16 +43,16 @@ public class FedelityCard extends BaseEntity {
 	@JsonBackReference
 	private List<Cliente> clienti;
 
-//	@ManyToMany
-//	@JoinTable( // tab di raccordo
-//			name = "raccordo_carta_fedelta_punto_vendita",
-//			joinColumns = @JoinColumn(name = "id_carta_fedelta_racc"),
-//			inverseJoinColumns = @JoinColumn(name = "id_punto_vendita_racc")
-//			)
-//	private List<PuntoVendita> puntiVendita;
+	@ManyToMany
+	@JoinTable( // tab di raccordo
+			name = "carteFedelta",
+			joinColumns = @JoinColumn(name = "id_carta_fedelta_racc"),
+			inverseJoinColumns = @JoinColumn(name = "id_punto_vendita_racc")
+			)
+	private List<PuntoVendita> puntiVendita;
 	
-	@OneToMany(mappedBy = "puntoVendita")
-    private List<RaccordoCartaPuntoVendita> raccordiPuntoVendita;
+//	@OneToMany(mappedBy = "puntoVendita")
+//    private List<RaccordoCartaPuntoVendita> raccordiPuntoVendita;
 
 	public long getId() {
 		return id;
@@ -97,19 +97,19 @@ public class FedelityCard extends BaseEntity {
 		this.clienti = clienti;
 	}
 
-	public List<RaccordoCartaPuntoVendita> getRaccordiPuntoVendita() {
-		return raccordiPuntoVendita;
+	public List<PuntoVendita> getPuntiVendita() {
+		return puntiVendita;
 	}
 
-	public void setRaccordiPuntoVendita(List<RaccordoCartaPuntoVendita> raccordiPuntoVendita) {
-		this.raccordiPuntoVendita = raccordiPuntoVendita;
+	public void setPuntiVendita(List<PuntoVendita> puntiVendita) {
+		this.puntiVendita = puntiVendita;
 	}
 
 	@Override
 	public String toString() {
 		return "FedelityCard [id=" + id + ", numeroTessera=" + numeroTessera + ", dataCreazioneTessera="
-				+ dataCreazioneTessera + ", punti=" + punti + ", clienti=" + clienti + ", raccordiPuntoVendita="
-				+ raccordiPuntoVendita + "]";
+				+ dataCreazioneTessera + ", punti=" + punti + ", clienti=" + clienti + ", puntiVendita=" + puntiVendita
+				+ "]";
 	}
 
 }

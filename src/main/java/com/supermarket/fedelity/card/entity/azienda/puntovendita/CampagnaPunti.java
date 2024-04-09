@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.entity;
+package com.supermarket.fedelity.card.entity.azienda.puntovendita;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "campagna_punti")
-public class CampagnaPunti extends BaseEntity {
+public class CampagnaPunti {
 	
 	@Id
 	@Column(name = "id_campgna_punti")

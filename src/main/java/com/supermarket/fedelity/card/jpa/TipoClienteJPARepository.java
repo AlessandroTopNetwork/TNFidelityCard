@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.supermarket.fedelity.card.entity.TipoCliente;
+import com.supermarket.fedelity.card.entity.cliente.TipologiaCliente;
 
-public interface TipoClienteJPARepository extends JpaRepository<TipoCliente, Long>{
+public interface TipoClienteJPARepository extends JpaRepository<TipologiaCliente, Long>{
 
-	Optional<TipoCliente> findByTipoCliente(String tipoCliente);
+	Optional<TipologiaCliente> findByTipoCliente(String tipoCliente);
 	
 }

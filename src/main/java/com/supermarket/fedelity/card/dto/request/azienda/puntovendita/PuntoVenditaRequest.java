@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.dto.request;
+package com.supermarket.fedelity.card.dto.request.azienda.puntovendita;
 
 public class PuntoVenditaRequest {
 

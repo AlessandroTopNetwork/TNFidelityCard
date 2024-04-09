@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.factory;
+package com.supermarket.fedelity.card.factory.azienda.puntovendita;
 
 import java.time.OffsetDateTime;
 
@@ -7,8 +7,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import com.supermarket.fedelity.card.dto.request.FedelityCardRequest;
-import com.supermarket.fedelity.card.entity.FedelityCard;
+import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.FedelityCardRequest;
+import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
+import com.supermarket.fedelity.card.factory.cliente.ClienteFactory;
 import com.supermarket.fedelity.card.jpa.PuntoVenditaRepository;
 
 @Component
