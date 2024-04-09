@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.jpa;
+package com.supermarket.fedelity.card.jpa.cliente;
 
 import java.util.List;
 

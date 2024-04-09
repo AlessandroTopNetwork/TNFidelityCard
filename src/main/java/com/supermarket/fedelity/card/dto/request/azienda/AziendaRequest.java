@@ -7,9 +7,14 @@ import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVendi
 public class AziendaRequest {
 
     private String nomeAzienda;
+    
     private String regione;
+    
     private String citta;
+    
     private List<PuntoVenditaRequest> puntiVendita;
+    
+	private TipologiaAziendaRequest tipoAzienda;
 
     public String getNomeAzienda() {
         return nomeAzienda;

@@ -1,4 +1,4 @@
-package com.supermarket.fedelity.card.jpa;
+package com.supermarket.fedelity.card.jpa.azienda.puntovendita;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

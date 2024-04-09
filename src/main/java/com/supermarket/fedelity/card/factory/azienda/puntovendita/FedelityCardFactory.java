@@ -10,12 +10,12 @@ import org.springframework.util.CollectionUtils;
 import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.FedelityCardRequest;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 import com.supermarket.fedelity.card.factory.cliente.ClienteFactory;
-import com.supermarket.fedelity.card.jpa.PuntoVenditaRepository;
+import com.supermarket.fedelity.card.jpa.azienda.puntovendita.PuntoVenditaRepository;
 
 @Component
 public class FedelityCardFactory {
 
-	@Lazy // per evitare la riconssione vistio che abbiamo un istanza di fedelitycardfactory in cleintefacotry
+	@Lazy // per evitare la riconssione vistio che abbiamo un istanza di fedelitycardfactory in clientefacotry
 	@Autowired
 	private ClienteFactory clienteFactory;
 	

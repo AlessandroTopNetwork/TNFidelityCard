@@ -44,6 +44,7 @@ public class FedelityCard {
 	private List<Cliente> clienti;
 
 	@ManyToMany
+	@JsonBackReference
 	@JoinTable( // tab di raccordo
 			name = "carteFedelta",
 			joinColumns = @JoinColumn(name = "id_carta_fedelta_racc"),

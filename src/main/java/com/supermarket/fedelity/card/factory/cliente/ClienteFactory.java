@@ -13,7 +13,8 @@ import com.supermarket.fedelity.card.entity.cliente.Cliente;
 import com.supermarket.fedelity.card.entity.cliente.TipologiaCliente;
 import com.supermarket.fedelity.card.entity.enumeration.ETipologiaCliente;
 import com.supermarket.fedelity.card.factory.azienda.puntovendita.FedelityCardFactory;
-import com.supermarket.fedelity.card.jpa.TipoClienteJPARepository;
+import com.supermarket.fedelity.card.factoryinterface.FactoryInterface;
+import com.supermarket.fedelity.card.jpa.cliente.TipoClienteJPARepository;
 
 import io.micrometer.common.util.StringUtils;
 
