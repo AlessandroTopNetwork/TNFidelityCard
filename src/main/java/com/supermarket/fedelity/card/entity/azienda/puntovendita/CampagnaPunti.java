@@ -2,6 +2,9 @@ package com.supermarket.fedelity.card.entity.azienda.puntovendita;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.List;
+
+import com.supermarket.fedelity.card.entity.cliente.Cliente;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,9 +12,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "campagna_punti")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CampagnaPunti {
 	
 	@Id
@@ -30,51 +41,5 @@ public class CampagnaPunti {
 
     @Column(name = "donversione_punti_euro", precision = 10, scale = 2)
     private BigDecimal conversionePuntiEuro;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNomeCampagna() {
-		return nomeCampagna;
-	}
-
-	public void setNomeCampagna(String nomeCampagna) {
-		this.nomeCampagna = nomeCampagna;
-	}
-
-	public OffsetDateTime getDataInizio() {
-		return dataInizio;
-	}
-
-	public void setDataInizio(OffsetDateTime dataInizio) {
-		this.dataInizio = dataInizio;
-	}
-
-	public OffsetDateTime getDataFine() {
-		return dataFine;
-	}
-
-	public void setDataFine(OffsetDateTime dataFine) {
-		this.dataFine = dataFine;
-	}
-
-	public BigDecimal getConversionePuntiEuro() {
-		return conversionePuntiEuro;
-	}
-
-	public void setConversionePuntiEuro(BigDecimal conversionePuntiEuro) {
-		this.conversionePuntiEuro = conversionePuntiEuro;
-	}
-
-	@Override
-	public String toString() {
-		return "CampagnaPunti [id=" + id + ", nomeCampagna=" + nomeCampagna + ", dataInizio=" + dataInizio
-				+ ", dataFine=" + dataFine + ", conversionePuntiEuro=" + conversionePuntiEuro + "]";
-	}
 
 }

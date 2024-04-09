@@ -1,6 +1,9 @@
 package com.supermarket.fedelity.card.entity.cliente;
 
 import java.time.OffsetDateTime;
+import java.util.List;
+
+import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,9 +14,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "sessione_acquisto")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Sessione {
 
 	@Id
@@ -31,47 +42,4 @@ public class Sessione {
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public OffsetDateTime getDataInizio() {
-		return dataInizio;
-	}
-
-	public void setDataInizio(OffsetDateTime dataInizio) {
-		this.dataInizio = dataInizio;
-	}
-
-	public OffsetDateTime getDataFine() {
-		return dataFine;
-	}
-
-	public void setDataFine(OffsetDateTime dataFine) {
-		this.dataFine = dataFine;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
-	@PreUpdate
-	private void preUpdate() {
-		this.dataFine = OffsetDateTime.now();
-	}
-
-	@Override
-	public String toString() {
-		return "Sessione [id=" + id + ", dataInizio=" + dataInizio + ", dataFine=" + dataFine + ", cliente=" + cliente
-				+ "]";
-	}
-	
 }

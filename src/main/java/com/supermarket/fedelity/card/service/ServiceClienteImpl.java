@@ -1,6 +1,5 @@
 package com.supermarket.fedelity.card.service;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

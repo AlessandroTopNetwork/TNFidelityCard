@@ -13,9 +13,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "azienda")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Azienda {
 	
     @Id
@@ -31,6 +39,9 @@ public class Azienda {
 
     @Column(name = "citta")
     private String citta;
+    
+    @Column(name = "citta2")
+    private String citta2;
 
     @OneToMany
     @JoinColumn(name = "punto_vendita_id")
@@ -38,52 +49,14 @@ public class Azienda {
     
     @ManyToOne
     @JoinColumn(name = "tipo_azienda_id")
-    private TipologiaAzienda tipoCliente;
-
-	public Long getIdAzienda() {
-		return idAzienda;
-	}
-
-	public void setIdAzienda(Long idAzienda) {
-		this.idAzienda = idAzienda;
-	}
-
-	public String getNomeAzienda() {
-		return nomeAzienda;
-	}
-
-	public void setNomeAzienda(String nomeAzienda) {
-		this.nomeAzienda = nomeAzienda;
-	}
-
-	public String getRegione() {
-		return regione;
-	}
-
-	public void setRegione(String regione) {
-		this.regione = regione;
-	}
-
-	public String getCitta() {
-		return citta;
-	}
-
-	public void setCitta(String citta) {
-		this.citta = citta;
-	}
-
-	public TipologiaAzienda getTipoCliente() {
-		return tipoCliente;
-	}
-
-	public void setTipoCliente(TipologiaAzienda tipoCliente) {
-		this.tipoCliente = tipoCliente;
-	}
-
-	@Override
-	public String toString() {
-		return "Azienda [idAzienda=" + idAzienda + ", nomeAzienda=" + nomeAzienda + ", regione=" + regione + ", citta="
-				+ citta + ", tipoCliente=" + tipoCliente + "]";
-	}
+    private TipologiaAzienda tipoCliente; // todo verso punto vendita
+    
+    public void exampleBuilder() {
+    	Azienda a = Azienda.builder()
+    			.citta(null)
+    			.tipoCliente(null)
+    			.citta2(null)
+    			.build();
+    }
 
 }

@@ -28,7 +28,11 @@ public class AziendaFactory {
 		
 		Azienda azienda = new Azienda();
 		
-		
+		if(null != resource) {
+			if(null != resource.getAzienda()) {
+				
+			}
+		}
 		
 		return null;
 	}

@@ -6,9 +6,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tipo_azienda")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TipologiaAzienda {
 
 	@Id
@@ -21,34 +29,5 @@ public class TipologiaAzienda {
 
 	@Column(name = "descrizione")
 	private String descrizione;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getTipoAzienda() {
-		return tipoAzienda;
-	}
-
-	public void setTipoAzienda(String tipoAzienda) {
-		this.tipoAzienda = tipoAzienda;
-	}
-
-	public String getDescrizione() {
-		return descrizione;
-	}
-
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-
-	@Override
-	public String toString() {
-		return "TipologiaAzienda [id=" + id + ", tipoCliente=" + tipoAzienda + ", descrizione=" + descrizione + "]";
-	}
 	
 }

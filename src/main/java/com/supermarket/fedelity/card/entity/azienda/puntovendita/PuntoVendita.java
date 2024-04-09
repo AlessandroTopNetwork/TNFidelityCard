@@ -11,12 +11,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "punto_vendita")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder	
 public class PuntoVendita {
 
 	@Id
@@ -38,61 +46,7 @@ public class PuntoVendita {
 	@JsonBackReference
 	private Azienda azienda;
 	
-	@ManyToMany(mappedBy = "puntiVendita")
+	@OneToMany(mappedBy = "puntoVendita") // variabile in FedelityCard che è la FOREIGN KEY su id punto vendita
     private List<FedelityCard> carteFedelta;
-
-	public Long getIdPuntoVendita() {
-		return idPuntoVendita;
-	}
-
-	public void setIdPuntoVendita(Long idPuntoVendita) {
-		this.idPuntoVendita = idPuntoVendita;
-	}
-
-	public String getNomePuntoVendita() {
-		return nomePuntoVendita;
-	}
-
-	public void setNomePuntoVendita(String nomePuntoVendita) {
-		this.nomePuntoVendita = nomePuntoVendita;
-	}
-
-	public String getCitta() {
-		return citta;
-	}
-
-	public void setCitta(String citta) {
-		this.citta = citta;
-	}
-
-	public String getRegione() {
-		return regione;
-	}
-
-	public void setRegione(String regione) {
-		this.regione = regione;
-	}
-
-	public Azienda getAzienda() {
-		return azienda;
-	}
-
-	public void setAzienda(Azienda azienda) {
-		this.azienda = azienda;
-	}
-
-	public List<FedelityCard> getCarteFedelta() {
-		return carteFedelta;
-	}
-
-	public void setCarteFedelta(List<FedelityCard> carteFedelta) {
-		this.carteFedelta = carteFedelta;
-	}
-
-	@Override
-	public String toString() {
-		return "PuntoVendita [idPuntoVendita=" + idPuntoVendita + ", nomePuntoVendita=" + nomePuntoVendita + ", citta="
-				+ citta + ", regione=" + regione + ", azienda=" + azienda + ", raccordiCarta=" + carteFedelta + "]";
-	}
 
 }

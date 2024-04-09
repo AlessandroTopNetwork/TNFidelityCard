@@ -1,8 +1,11 @@
 package com.supermarket.fedelity.card.entity.cliente;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.List;
 
 import com.supermarket.fedelity.card.dto.request.cliente.AcquistoRequest;
+import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,9 +15,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "acquisto")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Acquisto {
 	
     @Id
@@ -34,61 +45,5 @@ public class Acquisto {
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getIdProdotto() {
-		return idProdotto;
-	}
-
-	public void setIdProdotto(String idProdotto) {
-		this.idProdotto = idProdotto;
-	}
-
-	public String getNomeProdotto() {
-		return nomeProdotto;
-	}
-
-	public void setNomeProdotto(String nomeProdotto) {
-		this.nomeProdotto = nomeProdotto;
-	}
-
-	public BigDecimal getPrezzoProdotto() {
-		return prezzoProdotto;
-	}
-
-	public void setPrezzoProdotto(BigDecimal prezzoProdotto) {
-		this.prezzoProdotto = prezzoProdotto;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
-    public AcquistoRequest aziendaToResource(Acquisto acquisto) {
-    	
-    	AcquistoRequest ac = new AcquistoRequest();
-    	
-
-    	
-    	return ac;
-    	
-    }
-
-	@Override
-	public String toString() {
-		return "Acquisto [id=" + id + ", idProdotto=" + idProdotto + ", nomeProdotto=" + nomeProdotto
-				+ ", prezzoProdotto=" + prezzoProdotto + ", cliente=" + cliente + "]";
-	}
 
 }
