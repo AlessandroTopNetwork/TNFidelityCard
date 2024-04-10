@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.supermarket.fedelity.card.dto.request.cliente.ClienteRequest;
+import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 import com.supermarket.fedelity.card.entity.cliente.Cliente;
 import com.supermarket.fedelity.card.entity.cliente.TipologiaCliente;
 import com.supermarket.fedelity.card.entity.enumeration.ETipologiaCliente;
@@ -61,16 +62,14 @@ public class ClienteFactory {
 
 	}
 
-	public Cliente requestToEntity(ClienteRequest clienteRequest) throws Exception {
+	public Cliente requestToEntity(ClienteRequest clienteRequest) {
 		Cliente cliente = new Cliente();
-		if (null == clienteRequest) {
-			throw new Exception();
-		} else {
+		if (null != clienteRequest) {
 			cliente.setNome(clienteRequest.getNome());
 			cliente.setCognome(clienteRequest.getCognome());
 			cliente.setDataTesseramento(StringUtils.isNotEmpty(clienteRequest.getDataTesseramento()) ? OffsetDateTime.parse(clienteRequest.getDataTesseramento()) : null);
 			cliente.setEmail(clienteRequest.getEmail());
-			cliente.setCartaFedelta(fedelityCardFactory.requestToEntity(clienteRequest.getFedelityCard()));
+			cliente.setCartaFedelta(fedelityCardFactory.requestToEntity(clienteRequest.getFedelityCard(), new PuntoVendita())); // to test set cliente into card 
 			cliente.setIndirizzo(clienteRequest.getIndirizzo());
 			cliente.setNumeroTelefono(clienteRequest.getNumeroTelefono());
 			cliente.setNumeroTessera(clienteRequest.getNumeroTessera());
@@ -85,7 +84,7 @@ public class ClienteFactory {
 		return cliente;
 	}
 
-	public List<Cliente> requestToEntity(List<ClienteRequest> clienti) throws Exception {
+	public List<Cliente> requestToEntity(List<ClienteRequest> clienti) {
 
 		List<Cliente> listCr = new ArrayList<Cliente>();
 

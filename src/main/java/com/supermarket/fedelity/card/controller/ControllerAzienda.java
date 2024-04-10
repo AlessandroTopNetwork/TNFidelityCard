@@ -1,7 +1,5 @@
 package com.supermarket.fedelity.card.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
-import com.supermarket.fedelity.card.entity.azienda.Azienda;
 import com.supermarket.fedelity.card.service.ServiceAzienda;
 
 @RestController
@@ -24,7 +21,7 @@ public class ControllerAzienda {
 	private ServiceAzienda serviceAzienda;
 	
 	@GetMapping(value = "/companys")
-	public List<CreazioneAziendaRequest> getCompany() throws Exception {
+	public CreazioneAziendaRequest getCompany() throws Exception {
 		return serviceAzienda.getAziende();
 	}
 	
@@ -38,9 +35,9 @@ public class ControllerAzienda {
 //		return serviceAzienda.getListClientiFindByNumeroCarta(numeroTessera);
 //	}
 	
-	@PostMapping(value = "/company")
-	public CreazioneAziendaRequest registerCard(@RequestBody CreazioneAziendaRequest azienda) throws Exception {
-		return serviceAzienda.createAzienda(azienda);
+	@PostMapping(value = "/company") // create only azienda and punti vendita
+	public CreazioneAziendaRequest registerAzienda(@RequestBody CreazioneAziendaRequest azienda) throws Exception {
+		return serviceAzienda.createAziendaAndRetailOutlet(azienda);
 	}
 	
 	@PutMapping(value = "/company")

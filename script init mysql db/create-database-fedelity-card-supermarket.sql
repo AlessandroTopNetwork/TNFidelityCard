@@ -67,7 +67,8 @@ CREATE TABLE IF NOT EXISTS `azienda` (
      `id_azienda` bigint AUTO_INCREMENT PRIMARY KEY,
     `nome` VARCHAR(255) NOT NULL,
     `regione` VARCHAR(255) NOT NULL,
-    `citta` VARCHAR(255) not null
+    `citta` VARCHAR(255) not null,
+    `id_identifier` varchar(20) not null
 );
 
 -- creazione della tabella "tipologia_azienda"
@@ -83,6 +84,7 @@ CREATE TABLE IF NOT EXISTS `tipologia_azienda` (
 -- Creazione della tabella "punto_vedinta"
 CREATE TABLE IF NOT EXISTS `punto_vendita`(
     `id_punto_vendita` bigint AUTO_INCREMENT PRIMARY KEY,
+    `id_identifier` varchar(20) not null,
     `nome_punto_vendita` VARCHAR(255) NOT NULL,
     `citta` VARCHAR(255) NOT NULL,
     `regione` VARCHAR(255) NOT NULL,

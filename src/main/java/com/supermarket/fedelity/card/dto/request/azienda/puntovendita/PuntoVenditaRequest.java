@@ -30,8 +30,5 @@ public class PuntoVenditaRequest {
 	private TipologiaAziendaRequest tipoAzienda;
 	
 	private List<FedelityCardRequest> listFedelityCard;
-	
-	@JsonBackReference
-	private AziendaRequest azienda;
 
 }

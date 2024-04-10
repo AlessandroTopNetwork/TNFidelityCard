@@ -20,7 +20,7 @@ public class Scheduler implements ApplicationListener<ApplicationReadyEvent> {
 	private final Logger log = LoggerFactory.getLogger(Scheduler.class);
 	
 	@Value("${server.port}")
-	private String serverPort; // get vaue port set on application.properties
+	private String serverPort; // get value port set on application.properties
 
 	@Override
 	public void onApplicationEvent(ApplicationReadyEvent event) {

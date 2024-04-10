@@ -1,17 +1,23 @@
 package com.supermarket.fedelity.card.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.supermarket.fedelity.card.dto.request.azienda.AziendaRequest;
 import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
 import com.supermarket.fedelity.card.entity.azienda.Azienda;
+import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 import com.supermarket.fedelity.card.factory.azienda.AziendaFactory;
+import com.supermarket.fedelity.card.factory.azienda.puntovendita.PuntoVenditaFactory;
 import com.supermarket.fedelity.card.jpa.azienda.AziendaJPARepository;
 import com.supermarket.fedelity.card.jpa.azienda.TipologiaAziendaJPARepository;
+import com.supermarket.fedelity.card.jpa.azienda.puntovendita.PuntoVenditaJPARepository;
 import com.supermarket.fedelity.card.service.BaseService;
 import com.supermarket.fedelity.card.service.ServiceAzienda;
+import com.supermarket.fedelity.card.service.ServicePuntoVendita;
 
 @Service
 public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
@@ -20,15 +26,23 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 	private AziendaFactory aziendaFactory;
 	
 	@Autowired
+	private PuntoVenditaFactory puntoVenditaFactory;
+	
+	@Autowired
 	private AziendaJPARepository aziendaJpaRepository;
 	
 	@Autowired
 	private TipologiaAziendaJPARepository tipologiaAziendaJpaRepository;
+	
+	@Autowired
+	private ServicePuntoVendita servicePuntoVendita;
+	
+	@Autowired
+	private PuntoVenditaJPARepository puntoVenditaJpaRepository;
 
 	@Override
-	public List<CreazioneAziendaRequest> getAziende() {
-		// TODO Auto-generated method stub
-		return null;
+	public CreazioneAziendaRequest getAziende() {
+		return aziendaFactory.entityToResource(aziendaJpaRepository.findAll()); // find All Aziende and convert it in resource
 	}
 
 	@Override
@@ -38,11 +52,21 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 	}
 
 	@Override
-	public CreazioneAziendaRequest createAzienda(CreazioneAziendaRequest aziendaResource) {
+	public CreazioneAziendaRequest createAziendaAndRetailOutlet(CreazioneAziendaRequest aziendaResource) {
 		log.info("call createAzienda");
-		Azienda azienda = aziendaFactory.resourceToEntity(aziendaResource); // convert request from end point to entity
-//		fedelityCardRepository.save(azienda.getCartaFedelta());
-		aziendaJpaRepository.save(azienda);
+//		aziendaFactory.resourceToEntity(aziendaResource); // convert request from end point to entity and save any azienda
+		List<PuntoVendita> listPuntiVendita = new ArrayList<PuntoVendita>();
+
+		for (AziendaRequest ar : aziendaResource.getAzienda()) {
+			Azienda azienda = aziendaJpaRepository.save(aziendaFactory.resourceToEntity(ar)); // convert and save azienda
+			
+			listPuntiVendita = puntoVenditaJpaRepository.saveAll(puntoVenditaFactory.resourceToEntity(ar.getPuntiVendita(), azienda)); // convert puntivendita associced and save
+			
+			azienda.setPuntiVendita(listPuntiVendita); // set list punti vendita 
+			
+			aziendaJpaRepository.save(azienda); // up azienda
+		}
+
 		log.info("end createAzienda");
 		return aziendaResource;
 	}

@@ -55,7 +55,7 @@ public class PuntoVendita {
     private List<FedelityCard> carteFedelta;
 	
 	@ManyToOne
-	@JoinColumn(name = "tipo_azienda_id")
+	@JoinColumn(name = "tipologia_azienda_id")
 	private TipologiaAzienda tipoAzienda;
 
 	// example builder

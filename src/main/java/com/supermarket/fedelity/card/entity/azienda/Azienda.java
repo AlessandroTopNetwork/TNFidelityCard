@@ -39,9 +39,11 @@ public class Azienda {
 
     @Column(name = "citta")
     private String citta;
+    
+    @Column(name = "id_identifier")
+    private String idIdentifier;
 
-    @OneToMany
-    @JoinColumn(name = "punto_vendita_id")
+    @OneToMany(mappedBy = "azienda")
     private List<PuntoVendita> puntiVendita;
 
 }

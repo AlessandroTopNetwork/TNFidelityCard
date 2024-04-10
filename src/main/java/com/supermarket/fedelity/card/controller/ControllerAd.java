@@ -1,8 +1,12 @@
 package com.supermarket.fedelity.card.controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import lombok.Data;
 
 @ControllerAdvice
 public class ControllerAd {
@@ -18,5 +22,25 @@ public class ControllerAd {
 		System.out.println("test error");
 		return ex.getMessage();
 	}
+	
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleJsonParseException(HttpMessageNotReadableException ex) {
+        // Log the exception with the actual invalid JSON
+        System.out.println("Invalid JSON request body: " + ex.getMessage());
 
+        ErrorResponse errorResponse = new ErrorResponse("Invalid JSON format in request body");
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+}
+
+@Data
+class ErrorResponse {
+    private String message;
+
+    public ErrorResponse(String message) {
+        this.message = message;
+    }
+
+    // Getters and setters for message
 }

@@ -1,5 +1,7 @@
 package com.supermarket.fedelity.card.dto.request.azienda;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CreazioneAziendaRequest {
 	
-	private AziendaRequest azienda;
+	private List<AziendaRequest> azienda;
 
 }
