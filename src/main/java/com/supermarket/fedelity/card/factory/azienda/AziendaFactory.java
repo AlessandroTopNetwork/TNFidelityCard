@@ -45,7 +45,7 @@ public class AziendaFactory extends BaseFactory {
 					AziendaRequest aziendaRequest = resource.getAzienda();
 					azienda.setCitta(aziendaRequest.getCitta());
 					azienda.setNomeAzienda(aziendaRequest.getNomeAzienda());
-					azienda.setPuntiVendita(puntoVenditaFactory.resourceToEntity(aziendaRequest.getPuntiVendita()));
+					azienda.setPuntiVendita(puntoVenditaFactory.resourceToEntity(aziendaRequest.getPuntiVendita(), azienda));
 					azienda.setRegione(aziendaRequest.getRegione());
 				} else {
 					log.error(error(getClass().getCanonicalName()));

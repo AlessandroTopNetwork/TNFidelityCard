@@ -5,16 +5,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVenditaRequest;
+import com.supermarket.fedelity.card.entity.azienda.Azienda;
 import com.supermarket.fedelity.card.entity.azienda.TipologiaAzienda;
-import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 import com.supermarket.fedelity.card.factory.BaseFactory;
-import com.supermarket.fedelity.card.factory.azienda.AziendaFactory;
 import com.supermarket.fedelity.card.jpa.azienda.TipologiaAziendaJPARepository;
 import com.supermarket.fedelity.card.jpa.azienda.puntovendita.PuntoVenditaJPARepository;
+import com.supermarket.fedelity.card.utility.Utility;
 
 @Component
 public class PuntoVenditaFactory extends BaseFactory {
@@ -45,8 +44,47 @@ public class PuntoVenditaFactory extends BaseFactory {
 		return listPuntiVendita;
 
 	}
+	
+	public PuntoVendita resourceToEntity(PuntoVenditaRequest resource, Azienda azienda) {
 
-	public PuntoVendita resourceToEntity(PuntoVenditaRequest resource) {
+		PuntoVendita p = new PuntoVendita();
+		
+		String idIdentifier = null;
+
+		if(null != resource) {
+			
+			idIdentifier = Utility.generateRandomString(); // generate unique idIdentifier for puntovendita
+			while(puntoVenditaJpaRepository.getAllIdIdentifier().contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
+				idIdentifier = Utility.generateRandomString();
+			}
+			p.setAzienda(azienda);
+			p.setCitta(resource.getCitta());
+			p.setIdIdentifier(idIdentifier); 
+			p.setNomePuntoVendita(resource.getNomePuntoVendita());
+			p.setRegione(resource.getRegione());
+			TipologiaAzienda tipoAzienda = tipoAziendaJpaRepository.findByTipoAzienda(resource.getTipoAzienda().getTipoAzienda());
+			p.setTipoAzienda(tipoAzienda);
+			
+		}
+
+		return p;
+	}
+
+	public List<PuntoVendita> resourceToEntity(List<PuntoVenditaRequest> resourceList, Azienda azienda) {
+
+		List<PuntoVendita> listPuntiVendita = new ArrayList<PuntoVendita>();
+
+		for (PuntoVenditaRequest resource : resourceList) {
+			listPuntiVendita.add(resourceToEntity(resource, azienda));
+		}
+
+		return listPuntiVendita;
+	}
+	
+
+	// exist record
+	
+	public PuntoVendita resourceToEntityExsit(PuntoVenditaRequest resource) {
 
 		PuntoVendita p = new PuntoVendita();
 
@@ -59,12 +97,12 @@ public class PuntoVenditaFactory extends BaseFactory {
 		return p;
 	}
 
-	public List<PuntoVendita> resourceToEntity(List<PuntoVenditaRequest> resourceList) {
+	public List<PuntoVendita> resourceToEntityExist(List<PuntoVenditaRequest> resourceList) {
 
 		List<PuntoVendita> listPuntiVendita = new ArrayList<PuntoVendita>();
 
 		for (PuntoVenditaRequest resource : resourceList) {
-			listPuntiVendita.add(resourceToEntity(resource));
+			listPuntiVendita.add(resourceToEntityExsit(resource));
 		}
 
 		return listPuntiVendita;

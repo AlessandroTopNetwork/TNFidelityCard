@@ -7,6 +7,7 @@ import com.supermarket.fedelity.card.entity.azienda.Azienda;
 import com.supermarket.fedelity.card.entity.azienda.TipologiaAzienda;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,7 +45,7 @@ public class PuntoVendita {
 	
     @Column(name = "id_identifier")
     private String idIdentifier;
-
+   
 	@ManyToOne
 	@JoinColumn(name = "azienda_id")
 	@JsonBackReference
@@ -57,6 +58,7 @@ public class PuntoVendita {
 	@JoinColumn(name = "tipo_azienda_id")
 	private TipologiaAzienda tipoAzienda;
 
+	// example builder
 	public void exampleBuilder() {
 		PuntoVendita p = PuntoVendita.builder()
 				.citta(null)
