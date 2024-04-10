@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,9 @@ public class Scheduler implements ApplicationListener<ApplicationReadyEvent> {
 	// una classe alla volta si può estendere 
 	
 	private final Logger log = LoggerFactory.getLogger(Scheduler.class);
+	
+	@Value("${server.port}")
+	private String serverPort; // get vaue port set on application.properties
 
 	@Override
 	public void onApplicationEvent(ApplicationReadyEvent event) {
@@ -25,7 +29,11 @@ public class Scheduler implements ApplicationListener<ApplicationReadyEvent> {
 		
 		String os = System.getProperty("os.name").toLowerCase();
 		
-		String baseUrl = "http://localhost:8080/swagger-ui.html";
+		if(serverPort.isEmpty()) {// check if value in application.properties is not empty else setport default 8080
+			serverPort = "8080";
+		}
+		
+		String baseUrl = "http://localhost:" + serverPort + "/swagger-ui.html";
 
         try {
         	 if (os.contains("win")) {
