@@ -90,6 +90,10 @@ public class AziendaFactory extends BaseFactory {
 				entity.setIdIdentifier(idIdentifier);
 			} else { // otherwise search azienda on db
 				entity = aziendaJpaRepository.findByIdIdentifier(resource.getIdIdentifier());
+				// test case update
+				entity.setCitta(resource.getCitta());
+				entity.setNomeAzienda(resource.getNomeAzienda());
+				entity.setRegione(resource.getRegione());
 			}
 		} else {
 			log.error(error(getClass().getCanonicalName()));

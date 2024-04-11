@@ -78,6 +78,14 @@ public class PuntoVenditaFactory extends BaseFactory {
 			
 			} else {
 				entity = puntoVenditaJpaRepository.findByIdIdentifier(resource.getIdIdentifier());
+				// test case update
+				entity.setAzienda(azienda);
+				entity.setCitta(resource.getCitta());
+//				entity.setIdIdentifier(idIdentifier); // not override this filed because this is try update record on db
+				entity.setNomePuntoVendita(resource.getNomePuntoVendita());
+				entity.setRegione(resource.getRegione());
+				TipologiaAzienda tipoAzienda = tipoAziendaJpaRepository.findByTipoAzienda(resource.getTipoAzienda().getTipoAzienda());
+				entity.setTipoAzienda(tipoAzienda);
 			}
 		}
 

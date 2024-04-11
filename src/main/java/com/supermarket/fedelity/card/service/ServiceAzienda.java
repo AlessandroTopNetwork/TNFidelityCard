@@ -8,6 +8,10 @@ public interface ServiceAzienda { // TODO da fare service impl
 	
 	CreazioneAziendaRequest findById(long id);
 	
-	CreazioneAziendaRequest createAziendaAndRetailOutlet(CreazioneAziendaRequest azienda);
+	CreazioneAziendaRequest createAziendaAndRetailOutlet(CreazioneAziendaRequest aziendaResource);
+	
+	CreazioneAziendaRequest updateAzienda(CreazioneAziendaRequest aziendaResource);
+	
+	CreazioneAziendaRequest updatePuntiVendita(CreazioneAziendaRequest aziendaResource);
 	
 }

@@ -65,7 +65,6 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 	@Override
 	public CreazioneAziendaRequest createAziendaAndRetailOutlet(CreazioneAziendaRequest aziendaResource) {
 		log.info("call createAzienda");
-//		aziendaFactory.resourceToEntity(aziendaResource); // convert request from end point to entity and save any azienda
 		List<PuntoVendita> listPuntiVendita = new ArrayList<PuntoVendita>();
 
 		for (AziendaRequest ar : aziendaResource.getAzienda()) {
@@ -75,34 +74,46 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 			
 			azienda.setPuntiVendita(listPuntiVendita); // set list punti vendita
 			
-//			if(!CollectionUtils.isEmpty(ar.getPuntiVendita())) { // TODO inutile aspettarsi delle card in fase di registrazione azienda e/o punti vendita
-//				for(PuntoVenditaRequest puntoVenditaRequet : ar.getPuntiVendita()) {
-//					fedelityCardJPARepository.saveAll(fedelityCardFactory.requestToEntity(puntoVenditaRequet.getListFedelityCard(), findMatchingObject(puntoVenditaRequet, listPuntiVendita)));
-//				}
-//			}
-			
 			aziendaJpaRepository.save(azienda); // up azienda
 		}
 
 		log.info("end createAzienda");
 		return aziendaResource;
 	}
-	
-	private PuntoVendita findMatchingObject(List<PuntoVenditaRequest> listDto, List<PuntoVendita> listEntity) { // TODO test
-	    return listDto.stream()
-	            .flatMap(dto -> listEntity.stream()
-	                    .filter(entity -> // !dto.equals(entity) &&
-	                            Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier())))
-	            .findFirst()
-	            .orElse(null);
+
+	@Override
+	public CreazioneAziendaRequest updateAzienda(CreazioneAziendaRequest aziendaResource) {
+		log.info("call updateAzienda");
+
+		for (AziendaRequest ar : aziendaResource.getAzienda()) {
+			Azienda azienda = aziendaJpaRepository.save(aziendaFactory.resourceToEntity(ar)); // convert and save azienda			
+		}
+
+		log.info("end updateAzienda");
+		return aziendaResource;
 	}
 
-	private PuntoVendita findMatchingObject(PuntoVenditaRequest dto, List<PuntoVendita> listEntity) { // TODO test
-		return listEntity.stream()
-				.filter(entity -> // !dto.equals(entity) &&
-				Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier()))
-				.findFirst()
-				.orElse(null);
+	@Override
+	public CreazioneAziendaRequest updatePuntiVendita(CreazioneAziendaRequest aziendaResource) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+	
+//	private PuntoVendita findMatchingObject(List<PuntoVenditaRequest> listDto, List<PuntoVendita> listEntity) { // TODO test
+//	    return listDto.stream()
+//	            .flatMap(dto -> listEntity.stream()
+//	                    .filter(entity -> // !dto.equals(entity) &&
+//	                            Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier())))
+//	            .findFirst()
+//	            .orElse(null);
+//	}
+//
+//	private PuntoVendita findMatchingObject(PuntoVenditaRequest dto, List<PuntoVendita> listEntity) { // TODO test
+//		return listEntity.stream()
+//				.filter(entity -> // !dto.equals(entity) &&
+//				Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier()))
+//				.findFirst()
+//				.orElse(null);
+//	}
 
 }

@@ -41,8 +41,8 @@ public class ControllerAzienda {
 	}
 	
 	@PutMapping(value = "/company")
-	public String modifyCompany() {
-		return "test";
+	public CreazioneAziendaRequest modifyCompany(@RequestBody CreazioneAziendaRequest azienda) {
+		return serviceAzienda.updateAzienda(azienda);
 	}
 	
 	@DeleteMapping(value = "/company")
