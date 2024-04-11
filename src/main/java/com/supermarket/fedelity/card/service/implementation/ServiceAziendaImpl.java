@@ -92,12 +92,6 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 		log.info("end updateAzienda");
 		return aziendaResource;
 	}
-
-	@Override
-	public CreazioneAziendaRequest updatePuntiVendita(CreazioneAziendaRequest aziendaResource) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 //	private PuntoVendita findMatchingObject(List<PuntoVenditaRequest> listDto, List<PuntoVendita> listEntity) { // TODO test
 //	    return listDto.stream()

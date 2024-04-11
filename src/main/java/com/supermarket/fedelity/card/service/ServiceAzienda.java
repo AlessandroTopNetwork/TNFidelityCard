@@ -12,6 +12,4 @@ public interface ServiceAzienda { // TODO da fare service impl
 	
 	CreazioneAziendaRequest updateAzienda(CreazioneAziendaRequest aziendaResource);
 	
-	CreazioneAziendaRequest updatePuntiVendita(CreazioneAziendaRequest aziendaResource);
-	
 }
