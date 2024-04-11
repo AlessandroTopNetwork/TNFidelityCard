@@ -3,9 +3,9 @@ package com.supermarket.fedelity.card.factory.azienda.puntovendita;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVenditaRequest;
 import com.supermarket.fedelity.card.entity.azienda.Azienda;
@@ -56,30 +56,32 @@ public class PuntoVenditaFactory extends BaseFactory {
 	
 	public PuntoVendita resourceToEntity(PuntoVenditaRequest resource, Azienda azienda) {
 
-		PuntoVendita puntoVendita = new PuntoVendita();
+		PuntoVendita entity = new PuntoVendita();
 		
 		String idIdentifier = null;
 
 		if(null != resource) {
 			
-			idIdentifier = Utility.generateRandomString(); // generate unique idIdentifier for puntovendita
-			while(puntoVenditaJpaRepository.getAllIdIdentifier().contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
-				idIdentifier = Utility.generateRandomString();
-			}
-			puntoVendita.setAzienda(azienda);
-			puntoVendita.setCitta(resource.getCitta());
-			puntoVendita.setIdIdentifier(idIdentifier); 
-			puntoVendita.setNomePuntoVendita(resource.getNomePuntoVendita());
-			puntoVendita.setRegione(resource.getRegione());
-			TipologiaAzienda tipoAzienda = tipoAziendaJpaRepository.findByTipoAzienda(resource.getTipoAzienda().getTipoAzienda());
-			puntoVendita.setTipoAzienda(tipoAzienda);
-//			if(!CollectionUtils.isEmpty(resource.getListFedelityCard())) {
-//				puntoVendita.setCarteFedelta(fedelityCardFactory.requestToEntity(resource.getListFedelityCard(), puntoVendita));
-//			}
+			if(StringUtils.isEmpty(resource.getIdIdentifier()) || resource.getIdIdentifier().length() < 20) { // custom mocket lenght of all idIdentifier will be create a tab config for this
 			
+				idIdentifier = Utility.generateRandomString(); // generate unique idIdentifier for puntovendita
+				while(puntoVenditaJpaRepository.getAllIdIdentifier().contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
+					idIdentifier = Utility.generateRandomString();
+				}
+				entity.setAzienda(azienda);
+				entity.setCitta(resource.getCitta());
+				entity.setIdIdentifier(idIdentifier); 
+				entity.setNomePuntoVendita(resource.getNomePuntoVendita());
+				entity.setRegione(resource.getRegione());
+				TipologiaAzienda tipoAzienda = tipoAziendaJpaRepository.findByTipoAzienda(resource.getTipoAzienda().getTipoAzienda());
+				entity.setTipoAzienda(tipoAzienda);
+			
+			} else {
+				entity = puntoVenditaJpaRepository.findByIdIdentifier(resource.getIdIdentifier());
+			}
 		}
 
-		return puntoVendita;
+		return entity;
 	}
 
 	public List<PuntoVendita> resourceToEntity(List<PuntoVenditaRequest> resourceList, Azienda azienda) {

@@ -13,8 +13,6 @@ public class FedelityCardRequest {
 
 	private String numeroTessera;
 	
-	private String dataCreazioneTessera;
-	
 	private long punti;
 	
 	private String puntoVenditaNome;

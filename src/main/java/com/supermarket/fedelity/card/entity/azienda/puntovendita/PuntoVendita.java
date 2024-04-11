@@ -1,5 +1,6 @@
 package com.supermarket.fedelity.card.entity.azienda.puntovendita;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,6 +45,9 @@ public class PuntoVendita {
 	@Column(name = "regione")
 	private String regione;
 	
+	@Column(name = "data_di_creazione")
+	private OffsetDateTime dataCreazione;
+	
     @Column(name = "id_identifier")
     private String idIdentifier;
    
@@ -57,12 +62,17 @@ public class PuntoVendita {
 	@ManyToOne
 	@JoinColumn(name = "tipologia_azienda_id")
 	private TipologiaAzienda tipoAzienda;
+	
+	@PrePersist
+	private void setDateCreate() {
+		dataCreazione = OffsetDateTime.now();
+	}
 
 	// example builder
 	public void exampleBuilder() {
 		PuntoVendita p = PuntoVendita.builder()
-				.citta(null)
-				.tipoAzienda(null)
+				.citta("test citta")
+				.tipoAzienda(new TipologiaAzienda())
 				.build();
 	}
 

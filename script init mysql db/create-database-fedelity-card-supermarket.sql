@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `acquisto` (
     `id_prodotto` varchar(255) NULL,
     `nome_prodotto` varchar(255) NULL,
     `prezzo_prodotto` decimal(10,2),
+    `data_acquisto` TIMESTAMP,
     `cliente_id` bigint,
     CONSTRAINT fk_cliente_acquisto
     FOREIGN KEY (cliente_id) REFERENCES cliente(id_cliente)
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `campagna_punti` (
     `nome_campagna` VARCHAR(255) NOT NULL,
     `data_Inizio` TIMESTAMP,
     `data_fine` TIMESTAMP,
+    `data_di_creazione` TIMESTAMP,
     `conversione_punti_euro` DECIMAL(10, 2)
 );
 
@@ -68,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `azienda` (
     `nome` VARCHAR(255) NOT NULL,
     `regione` VARCHAR(255) NOT NULL,
     `citta` VARCHAR(255) not null,
+    `data_di_creazione` TIMESTAMP,
     `id_identifier` varchar(20) not null
 );
 
@@ -84,28 +87,17 @@ CREATE TABLE IF NOT EXISTS `tipologia_azienda` (
 -- Creazione della tabella "punto_vedinta"
 CREATE TABLE IF NOT EXISTS `punto_vendita`(
     `id_punto_vendita` bigint AUTO_INCREMENT PRIMARY KEY,
-    `id_identifier` varchar(20) not null,
     `nome_punto_vendita` VARCHAR(255) NOT NULL,
     `citta` VARCHAR(255) NOT NULL,
     `regione` VARCHAR(255) NOT NULL,
+    `data_di_creazione` TIMESTAMP,
+    `id_identifier` varchar(20) not null,
     `azienda_id` bigint,
     `tipologia_azienda_id` bigint,
     CONSTRAINT fk_azienda_punto_vendita
     FOREIGN KEY (azienda_id) REFERENCES azienda(id_azienda),
     CONSTRAINT fk_tipologia_azienda_punto_vendita
     FOREIGN KEY (tipologia_azienda_id) REFERENCES tipologia_azienda(id_tipologia_azienda)
-);
-
--- Creazione della tabella "raccordo_carta_fedelta_punto_vendita" per correlazione manytomany
-CREATE TABLE IF NOT EXISTS `raccordo_carta_fedelta_punto_vendita`(
-    `id_raccordo_carta_fedelta_punto_vendita` bigint AUTO_INCREMENT,
-    `carta_fedelta_racc_id` bigint NOT NULL,
-    `punto_vendita_racc_id` bigint NOT NULL,
-    PRIMARY KEY(`id_raccordo_carta_fedelta_punto_vendita`,`carta_fedelta_racc_id`, `punto_vendita_racc_id`),
-    CONSTRAINT fk_carta_fedelta_racc_id
-    FOREIGN KEY (carta_fedelta_racc_id) REFERENCES carta_fedelta(id_carta_fedelta),
-    CONSTRAINT fk_punto_vendita_racc_id
-    FOREIGN KEY (punto_vendita_racc_id) REFERENCES punto_vendita(id_punto_vendita)
 );
 
 -- Creazione della tabella "tipo_azienda"

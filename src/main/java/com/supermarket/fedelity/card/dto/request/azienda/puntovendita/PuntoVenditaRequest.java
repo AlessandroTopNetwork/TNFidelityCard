@@ -1,9 +1,5 @@
 package com.supermarket.fedelity.card.dto.request.azienda.puntovendita;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.supermarket.fedelity.card.dto.request.azienda.AziendaRequest;
 import com.supermarket.fedelity.card.dto.request.azienda.TipologiaAziendaRequest;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +25,6 @@ public class PuntoVenditaRequest {
 
 	private TipologiaAziendaRequest tipoAzienda;
 	
-	private List<FedelityCardRequest> listFedelityCard;
+//	private List<FedelityCardRequest> listFedelityCard;
 
 }

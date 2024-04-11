@@ -2,18 +2,23 @@ package com.supermarket.fedelity.card.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.supermarket.fedelity.card.dto.request.azienda.AziendaRequest;
 import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
+import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVenditaRequest;
 import com.supermarket.fedelity.card.entity.azienda.Azienda;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 import com.supermarket.fedelity.card.factory.azienda.AziendaFactory;
+import com.supermarket.fedelity.card.factory.azienda.puntovendita.FedelityCardFactory;
 import com.supermarket.fedelity.card.factory.azienda.puntovendita.PuntoVenditaFactory;
 import com.supermarket.fedelity.card.jpa.azienda.AziendaJPARepository;
 import com.supermarket.fedelity.card.jpa.azienda.TipologiaAziendaJPARepository;
+import com.supermarket.fedelity.card.jpa.azienda.puntovendita.FedelityCardJPARepository;
 import com.supermarket.fedelity.card.jpa.azienda.puntovendita.PuntoVenditaJPARepository;
 import com.supermarket.fedelity.card.service.BaseService;
 import com.supermarket.fedelity.card.service.ServiceAzienda;
@@ -29,6 +34,9 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 	private PuntoVenditaFactory puntoVenditaFactory;
 	
 	@Autowired
+	private FedelityCardFactory fedelityCardFactory;
+	
+	@Autowired
 	private AziendaJPARepository aziendaJpaRepository;
 	
 	@Autowired
@@ -39,6 +47,9 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 	
 	@Autowired
 	private PuntoVenditaJPARepository puntoVenditaJpaRepository;
+	
+	@Autowired
+	private FedelityCardJPARepository fedelityCardJPARepository;
 
 	@Override
 	public CreazioneAziendaRequest getAziende() {
@@ -62,13 +73,36 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 			
 			listPuntiVendita = puntoVenditaJpaRepository.saveAll(puntoVenditaFactory.resourceToEntity(ar.getPuntiVendita(), azienda)); // convert puntivendita associced and save
 			
-			azienda.setPuntiVendita(listPuntiVendita); // set list punti vendita 
+			azienda.setPuntiVendita(listPuntiVendita); // set list punti vendita
+			
+//			if(!CollectionUtils.isEmpty(ar.getPuntiVendita())) { // TODO inutile aspettarsi delle card in fase di registrazione azienda e/o punti vendita
+//				for(PuntoVenditaRequest puntoVenditaRequet : ar.getPuntiVendita()) {
+//					fedelityCardJPARepository.saveAll(fedelityCardFactory.requestToEntity(puntoVenditaRequet.getListFedelityCard(), findMatchingObject(puntoVenditaRequet, listPuntiVendita)));
+//				}
+//			}
 			
 			aziendaJpaRepository.save(azienda); // up azienda
 		}
 
 		log.info("end createAzienda");
 		return aziendaResource;
+	}
+	
+	private PuntoVendita findMatchingObject(List<PuntoVenditaRequest> listDto, List<PuntoVendita> listEntity) { // TODO test
+	    return listDto.stream()
+	            .flatMap(dto -> listEntity.stream()
+	                    .filter(entity -> // !dto.equals(entity) &&
+	                            Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier())))
+	            .findFirst()
+	            .orElse(null);
+	}
+
+	private PuntoVendita findMatchingObject(PuntoVenditaRequest dto, List<PuntoVendita> listEntity) { // TODO test
+		return listEntity.stream()
+				.filter(entity -> // !dto.equals(entity) &&
+				Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier()))
+				.findFirst()
+				.orElse(null);
 	}
 
 }

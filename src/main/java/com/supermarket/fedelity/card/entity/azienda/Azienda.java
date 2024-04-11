@@ -1,5 +1,6 @@
 package com.supermarket.fedelity.card.entity.azienda;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
@@ -9,9 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,10 +40,18 @@ public class Azienda {
     @Column(name = "citta")
     private String citta;
     
+	@Column(name = "data_di_creazione")
+	private OffsetDateTime dataCreazione;
+    
     @Column(name = "id_identifier")
     private String idIdentifier;
 
     @OneToMany(mappedBy = "azienda")
     private List<PuntoVendita> puntiVendita;
+    
+    @PrePersist
+    private void setDateCreate() {
+    	dataCreazione = OffsetDateTime.now();
+    }
 
 }

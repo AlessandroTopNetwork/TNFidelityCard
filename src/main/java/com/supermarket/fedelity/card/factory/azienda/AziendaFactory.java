@@ -73,22 +73,29 @@ public class AziendaFactory extends BaseFactory {
 
 	public Azienda resourceToEntity(AziendaRequest resource) {
 
-		Azienda azienda = new Azienda();
+		Azienda entity = new Azienda();
+		
+		String idIdentifier = null;
 
 		if (null != resource) { // check null safe
-			if(StringUtils.isEmpty(resource.getIdIdentifier())) { // if seend id null then create new azienda 
-				azienda.setCitta(resource.getCitta());
-				azienda.setNomeAzienda(resource.getNomeAzienda());
-				azienda.setRegione(resource.getRegione());
-				azienda.setIdIdentifier(Utility.generateRandomString());
+			if(StringUtils.isEmpty(resource.getIdIdentifier()) || resource.getIdIdentifier().length() < 20) { // if seend id null then create new azienda 
+				
+				idIdentifier = Utility.generateRandomString(); // generate unique idIdentifier for azienda
+				while(aziendaJpaRepository.getAllIdIdentifier().contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
+					idIdentifier = Utility.generateRandomString();
+				}
+				entity.setCitta(resource.getCitta());
+				entity.setNomeAzienda(resource.getNomeAzienda());
+				entity.setRegione(resource.getRegione());
+				entity.setIdIdentifier(idIdentifier);
 			} else { // otherwise search azienda on db
-				azienda = aziendaJpaRepository.findByIdIdentifier(resource.getIdIdentifier());
+				entity = aziendaJpaRepository.findByIdIdentifier(resource.getIdIdentifier());
 			}
 		} else {
 			log.error(error(getClass().getCanonicalName()));
 		}
 
-		return azienda;
+		return entity;
 	}
 
 //	public CreazioneAziendaRequest resourceToEntity(CreazioneAziendaRequest resource) { // TODO
