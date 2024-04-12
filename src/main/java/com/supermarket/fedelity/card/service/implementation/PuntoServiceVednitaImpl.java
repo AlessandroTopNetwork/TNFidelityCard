@@ -14,10 +14,10 @@ import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 import com.supermarket.fedelity.card.factory.azienda.puntovendita.PuntoVenditaFactory;
 import com.supermarket.fedelity.card.jpa.azienda.puntovendita.PuntoVenditaJPARepository;
 import com.supermarket.fedelity.card.service.BaseService;
-import com.supermarket.fedelity.card.service.ServicePuntoVendita;
+import com.supermarket.fedelity.card.service.PuntoVenditaService;
 
 @Service
-public class ServicePuntoVednitaImpl extends BaseService implements ServicePuntoVendita {
+public class PuntoServiceVednitaImpl extends BaseService implements PuntoVenditaService {
 	
 	@Autowired
 	private PuntoVenditaFactory puntoVenditaFactory;
@@ -51,7 +51,7 @@ public class ServicePuntoVednitaImpl extends BaseService implements ServicePunto
 		PuntoVendita pv = null;
 		boolean search = true;
 
-		for (AziendaRequest ar : aziendaResource.getAzienda()) {
+		for (AziendaRequest ar : aziendaResource.getAziende()) {
 			search = true;
 			if(!CollectionUtils.isEmpty(ar.getPuntiVendita())){
 				for(PuntoVenditaRequest pvr : ar.getPuntiVendita()) {

@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.supermarket.fedelity.card.dto.request.azienda.AziendaRequest;
 import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
-import com.supermarket.fedelity.card.service.ServiceAzienda;
+import com.supermarket.fedelity.card.service.AziendaService;
 
 @RestController
 @RequestMapping(value = "/companyservice")
 public class ControllerAzienda {
 	
 	@Autowired
-	private ServiceAzienda serviceAzienda;
+	private AziendaService serviceAzienda;
 	
 	@GetMapping(value = "/companys")
-	public CreazioneAziendaRequest getCompany() throws Exception {
+	public CreazioneAziendaRequest getAllCompany() throws Exception {
 		return serviceAzienda.getAziende();
 	}
 	

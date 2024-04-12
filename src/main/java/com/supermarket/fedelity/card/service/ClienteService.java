@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.supermarket.fedelity.card.dto.request.cliente.ClienteRequest;
 
-public interface ServiceCliente {
+public interface ClienteService {
 	
 	List<ClienteRequest> getListClienti() throws Exception;
 	

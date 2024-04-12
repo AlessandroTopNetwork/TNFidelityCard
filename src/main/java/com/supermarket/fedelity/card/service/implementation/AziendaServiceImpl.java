@@ -19,12 +19,12 @@ import com.supermarket.fedelity.card.jpa.azienda.AziendaJPARepository;
 import com.supermarket.fedelity.card.jpa.azienda.TipologiaAziendaJPARepository;
 import com.supermarket.fedelity.card.jpa.azienda.puntovendita.FedelityCardJPARepository;
 import com.supermarket.fedelity.card.jpa.azienda.puntovendita.PuntoVenditaJPARepository;
+import com.supermarket.fedelity.card.service.AziendaService;
 import com.supermarket.fedelity.card.service.BaseService;
-import com.supermarket.fedelity.card.service.ServiceAzienda;
-import com.supermarket.fedelity.card.service.ServicePuntoVendita;
+import com.supermarket.fedelity.card.service.PuntoVenditaService;
 
 @Service
-public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
+public class AziendaServiceImpl extends BaseService implements AziendaService{
 	
 	@Autowired
 	private AziendaFactory aziendaFactory;
@@ -42,7 +42,7 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 	private TipologiaAziendaJPARepository tipologiaAziendaJpaRepository;
 	
 	@Autowired
-	private ServicePuntoVendita servicePuntoVendita;
+	private PuntoVenditaService servicePuntoVendita;
 	
 	@Autowired
 	private PuntoVenditaJPARepository puntoVenditaJpaRepository;
@@ -55,7 +55,34 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 		
 		CreazioneAziendaRequest response = new CreazioneAziendaRequest();
 		
-		response.setAzienda(aziendaFactory.entityToResource(aziendaJpaRepository.findAll())); // find All Aziende and convert it in resource
+		List<Azienda> listAzienda = aziendaJpaRepository.findAll();
+		
+		response.setAziende(aziendaFactory.entityToResource(listAzienda)); // find All Aziende and convert it in resource
+		
+		for(int i = 0; i < listAzienda.size(); i++) {
+			
+			AziendaRequest aziendaResponse = response.getAziende().get(i);
+			
+			Azienda azienda = listAzienda.get(i);
+			
+			aziendaResponse.setPuntiVendita(puntoVenditaFactory.entityToResource(azienda.getPuntiVendita()));
+			
+			setFedelityCardToPuntoVendita(aziendaResponse, azienda);
+			
+//			for(int a = 0 ; a < aziendaResponse.getPuntiVendita().size(); a++ ) { // for on punti vendita
+//				
+//				aziendaResponse.getPuntiVendita().get(a) // get current punto vendita
+//						.setListFedelityCard( // set list into main obj response
+//								fedelityCardFactory.entityToResource( // convert list fedelity card to resource
+//										findMatchingPuntoVedinta(
+//												aziendaResponse.getPuntiVendita().get(a), azienda.getPuntiVendita() // search for the specific point of sale entity, since it is not certain that the id of the dto list is the same as that of the list entity
+//											).getCarteFedelta() // and list of fedelityCard
+//										)
+//								);
+//				
+//			}
+			
+		}
 		
 		return response;
 	}
@@ -73,20 +100,7 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 		
 		response.setPuntiVendita(puntoVenditaFactory.entityToResource(azienda.getPuntiVendita()));
 		
-		for(int i = 0 ; i < response.getPuntiVendita().size(); i++ ) { // for on punti vendita
-			
-//			FedelityCardRequest fcr = new FedelityCardRequest();
-			
-			response.getPuntiVendita().get(i) // get current list punti vendita
-					.setListFedelityCard( // set list into main obj response
-							fedelityCardFactory.entityToResource( // convert list fedelity card to resource
-									findMatchingPuntoVedinta(
-											response.getPuntiVendita().get(i), azienda.getPuntiVendita()) // search for the specific point of sale entity, since it is not certain that the id of the dto list is the same as that of the list entity
-										.getCarteFedelta() // and list of fedelityCard
-									)
-							);
-			
-		}
+		setFedelityCardToPuntoVendita(response, azienda);
 		
 		return response;
 	}
@@ -96,7 +110,7 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 		log.info("call createAzienda");
 		List<PuntoVendita> listPuntiVendita = new ArrayList<PuntoVendita>();
 
-		for (AziendaRequest ar : aziendaResource.getAzienda()) {
+		for (AziendaRequest ar : aziendaResource.getAziende()) {
 			Azienda azienda = aziendaJpaRepository.save(aziendaFactory.resourceToEntity(ar)); // convert and save azienda
 			
 			listPuntiVendita = puntoVenditaJpaRepository.saveAll(puntoVenditaFactory.resourceToEntity(ar.getPuntiVendita(), azienda)); // convert puntivendita associced and save
@@ -114,7 +128,7 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 	public CreazioneAziendaRequest updateAzienda(CreazioneAziendaRequest aziendaResource) {
 		log.info("call updateAzienda");
 
-		for (AziendaRequest ar : aziendaResource.getAzienda()) {
+		for (AziendaRequest ar : aziendaResource.getAziende()) {
 			Azienda azienda = aziendaJpaRepository.save(aziendaFactory.resourceToEntity(ar)); // convert and save azienda			
 		}
 
@@ -137,6 +151,21 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 						Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier()))
 					.findFirst()
 					.orElse(null);
+	}
+	
+	private void setFedelityCardToPuntoVendita(AziendaRequest response, Azienda azienda) {
+		for(int i = 0 ; i < response.getPuntiVendita().size(); i++ ) { // for on punti vendita
+						
+			response.getPuntiVendita().get(i) // get current list punti vendita
+					.setListFedelityCard( // set list into main obj response
+							fedelityCardFactory.entityToResource( // convert list fedelity card to resource
+									findMatchingPuntoVedinta(
+											response.getPuntiVendita().get(i), azienda.getPuntiVendita() // search for the specific point of sale entity, since it is not certain that the id of the dto list is the same as that of the list entity
+										).getCarteFedelta() // and list of fedelityCard
+									)
+							);
+			
+		}
 	}
 
 }

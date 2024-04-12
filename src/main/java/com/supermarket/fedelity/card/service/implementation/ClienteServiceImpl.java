@@ -11,10 +11,10 @@ import com.supermarket.fedelity.card.factory.cliente.ClienteFactory;
 import com.supermarket.fedelity.card.jpa.azienda.puntovendita.FedelityCardJPARepository;
 import com.supermarket.fedelity.card.jpa.cliente.ClienteJPARepository;
 import com.supermarket.fedelity.card.service.BaseService;
-import com.supermarket.fedelity.card.service.ServiceCliente;
+import com.supermarket.fedelity.card.service.ClienteService;
 
 @Service
-public class ServiceClienteImpl extends BaseService implements ServiceCliente {
+public class ClienteServiceImpl extends BaseService implements ClienteService {
 
 	@Autowired
 	private ClienteJPARepository clienteRepository;

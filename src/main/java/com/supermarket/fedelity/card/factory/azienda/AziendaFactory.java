@@ -74,12 +74,14 @@ public class AziendaFactory extends BaseFactory {
 		Azienda entity = new Azienda();
 		
 		String idIdentifier = null;
+		
+		List<String> listIdIdentifier = aziendaJpaRepository.getAllIdIdentifier();
 
 		if (null != resource) { // check null safe
 			if(StringUtils.isEmpty(resource.getIdIdentifier()) || resource.getIdIdentifier().length() < 20) { // if seend id null then create new azienda 
 				
 				idIdentifier = Utility.generateRandomString(); // generate unique idIdentifier for azienda
-				while(aziendaJpaRepository.getAllIdIdentifier().contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
+				while(listIdIdentifier.contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
 					idIdentifier = Utility.generateRandomString();
 				}
 				entity.setCitta(resource.getCitta());

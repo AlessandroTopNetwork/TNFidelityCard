@@ -6,7 +6,7 @@ import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest
 import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVenditaRequest;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 
-public interface ServicePuntoVendita {
+public interface PuntoVenditaService {
 	
 	List<PuntoVenditaRequest> getPuntiVendita(String idAzienda); // or obj Azienda
 	

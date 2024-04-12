@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
-import com.supermarket.fedelity.card.service.ServicePuntoVendita;
+import com.supermarket.fedelity.card.service.PuntoVenditaService;
 
 @RestController
 @RequestMapping(value = "/pointsaleservice")
 public class ControllerRetailOutlet {
 	
 	@Autowired
-	private ServicePuntoVendita servicePuntoVendita;
+	private PuntoVenditaService servicePuntoVendita;
 	
 	@PutMapping(value = "/retailoutlet")
 	public CreazioneAziendaRequest updateRetailOutlet(@RequestBody CreazioneAziendaRequest aziendaResource) throws Exception {

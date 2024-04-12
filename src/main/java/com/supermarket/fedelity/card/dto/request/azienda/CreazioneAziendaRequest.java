@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CreazioneAziendaRequest {
 	
-	private List<AziendaRequest> azienda;
+	private List<AziendaRequest> aziende;
 
 }

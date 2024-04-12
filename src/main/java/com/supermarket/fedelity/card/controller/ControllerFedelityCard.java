@@ -1,5 +1,7 @@
 package com.supermarket.fedelity.card.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,23 +12,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
+import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.FedelityCardRequest;
+import com.supermarket.fedelity.card.service.FedelityCardService;
 
 @RestController
 @RequestMapping(value = "/fedelitycardservice")
 public class ControllerFedelityCard {
 	
 	@Autowired
-	private ServiceFedelityCard serviceFedelityCard;
+	private FedelityCardService serviceFedelityCard;
 	
 	@GetMapping(value = "/fedelityCards")
-	public CreazioneAziendaRequest getfedelityCard() throws Exception {
-		return serviceFedelityCard.getAziende();
+	public List<FedelityCardRequest> getfedelityCardByIdIdentifierPuntoVendita(@PathVariable String idIdentifierPuntoVendita) {
+		return serviceFedelityCard.getAllFedelityCardByPuntoVendita(idIdentifierPuntoVendita);
 	}
 	
-	@GetMapping(value = "/fedelityCard/{idIdentifier}")
-	public CreazioneAziendaRequest getfedelityCard(@PathVariable String idIdentifier) throws Exception {
-		return serviceFedelityCard.findByIdIdentifier(idIdentifier);
+	@GetMapping(value = "/fedelityCard/{numeroTessera}")
+	public FedelityCardRequest getfedelityCard(@PathVariable String numeroTessera) throws Exception {
+		return serviceFedelityCard.findByNumeroTessera(numeroTessera);
 	}
 	
 //	@GetMapping(value = "/fedelityCards/{numeroTessera}")
@@ -35,17 +38,17 @@ public class ControllerFedelityCard {
 //	}
 	
 	@PostMapping(value = "/fedelityCard") // create only azienda and punti vendita // work
-	public CreazioneAziendaRequest registerAzienda(@RequestBody CreazioneAziendaRequest azienda) throws Exception {
-		return serviceFedelityCard.createAziendaAndRetailOutlet(azienda);
+	public FedelityCardRequest registerFedelityCard(@RequestBody FedelityCardRequest fedelityCard) throws Exception {
+		return serviceFedelityCard.createFedelityCard(fedelityCard);
 	}
 	
 	@PutMapping(value = "/fedelityCard")
-	public CreazioneAziendaRequest modifyfedelityCard(@RequestBody CreazioneAziendaRequest azienda) { // work
-		return serviceFedelityCard.updateAzienda(azienda);
+	public FedelityCardRequest modifyFedelityCard(@RequestBody FedelityCardRequest fedelityCard) { // work
+		return serviceFedelityCard.updateFedelityCard(fedelityCard);
 	}
 	
 	@DeleteMapping(value = "/fedelityCard")
-	public String deletefedelityCard() {
+	public String deleteFedelityCard() {
 		return "";
 	}
 
