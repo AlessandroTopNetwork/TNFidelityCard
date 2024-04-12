@@ -36,7 +36,10 @@ public class PuntoVenditaFactory extends BaseFactory {
 		PuntoVenditaRequest puntoVenditaRequest = new PuntoVenditaRequest();
 		
 		if(null != entity) {
-			
+			puntoVenditaRequest.setIdIdentifier(entity.getIdIdentifier());
+			puntoVenditaRequest.setCitta(entity.getCitta());
+			puntoVenditaRequest.setNomePuntoVendita(entity.getNomePuntoVendita());
+			puntoVenditaRequest.setRegione(entity.getRegione());
 		}
 		
 		return puntoVenditaRequest;

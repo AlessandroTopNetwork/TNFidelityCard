@@ -25,8 +25,8 @@ import com.supermarket.fedelity.card.utility.Utility;
 @Component
 public class AziendaFactory extends BaseFactory {
 
-	@Autowired
-	private PuntoVenditaFactory puntoVenditaFactory;
+//	@Autowired
+//	private PuntoVenditaFactory puntoVenditaFactory;
 
 //	@Autowired
 //	private FedelityCardFactory fedelityCardFactory;
@@ -48,24 +48,22 @@ public class AziendaFactory extends BaseFactory {
 			resource.setCitta(entity.getCitta());
 			resource.setNomeAzienda(entity.getNomeAzienda());
 			resource.setRegione(entity.getRegione());
-			resource.setPuntiVendita(puntoVenditaFactory.entityToResource(entity.getPuntiVendita()));
+//			resource.setPuntiVendita(puntoVenditaFactory.entityToResource(entity.getPuntiVendita()));
 		}
 
 		return resource;
 	}
 
-	public CreazioneAziendaRequest entityToResource(List<Azienda> entityList) {
+	public List<AziendaRequest> entityToResource(List<Azienda> entityList) {
 
-		CreazioneAziendaRequest creazioneAziendeRequest = new CreazioneAziendaRequest(); // obj main response
+		List<AziendaRequest> aziendeRequest = new ArrayList<AziendaRequest>(); // obj main response
 
-		creazioneAziendeRequest.setAzienda(new ArrayList<AziendaRequest>()); // set empty list azienda into obj main
-																				// before convert
 
 		for (Azienda resource : entityList) {
-			creazioneAziendeRequest.getAzienda().add(entityToResource(resource)); // ad many Azienda obj found on db
+			aziendeRequest.add(entityToResource(resource)); // ad many Azienda obj found on db
 		}
 
-		return creazioneAziendeRequest;
+		return aziendeRequest;
 
 	}
 

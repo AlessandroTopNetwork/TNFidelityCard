@@ -1,12 +1,13 @@
 package com.supermarket.fedelity.card.service;
 
+import com.supermarket.fedelity.card.dto.request.azienda.AziendaRequest;
 import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
 
 public interface ServiceAzienda { // TODO da fare service impl
 	
 	CreazioneAziendaRequest getAziende();
 	
-	CreazioneAziendaRequest findById(long id);
+	AziendaRequest findByIdIdentifier(String idIdentifier);
 	
 	CreazioneAziendaRequest createAziendaAndRetailOutlet(CreazioneAziendaRequest aziendaResource);
 	

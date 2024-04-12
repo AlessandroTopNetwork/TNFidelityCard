@@ -38,7 +38,7 @@ public class ClienteFactory {
 			clienteRequest.setCognome(cliente.getCognome());
 			clienteRequest.setDataTesseramento(null !=cliente.getDataTesseramento() ? cliente.getDataTesseramento().toString() : null);
 			clienteRequest.setEmail(cliente.getEmail());
-			clienteRequest.setFedelityCard(fedelityCardFactory.entityToRequest(cliente.getCartaFedelta()));
+			clienteRequest.setFedelityCard(fedelityCardFactory.entityToResource(cliente.getCartaFedelta()));
 			clienteRequest.setIndirizzo(cliente.getIndirizzo());
 			clienteRequest.setNumeroTelefono(cliente.getNumeroTelefono());
 			clienteRequest.setNumeroTessera(cliente.getNumeroTessera());

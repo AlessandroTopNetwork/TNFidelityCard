@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import com.supermarket.fedelity.card.dto.request.azienda.AziendaRequest;
 import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
@@ -53,13 +52,43 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 
 	@Override
 	public CreazioneAziendaRequest getAziende() {
-		return aziendaFactory.entityToResource(aziendaJpaRepository.findAll()); // find All Aziende and convert it in resource
+		
+		CreazioneAziendaRequest response = new CreazioneAziendaRequest();
+		
+		response.setAzienda(aziendaFactory.entityToResource(aziendaJpaRepository.findAll())); // find All Aziende and convert it in resource
+		
+		return response;
 	}
 
 	@Override
-	public CreazioneAziendaRequest findById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public AziendaRequest findByIdIdentifier(String idIdentifier) {
+		
+		AziendaRequest response = new AziendaRequest();
+		
+		Azienda azienda = aziendaJpaRepository.findByIdIdentifier(idIdentifier);
+		
+		response = aziendaFactory.entityToResource(azienda);
+		
+//		List<PuntoVendita> puntiVendita = puntoVenditaJpaRepository.findByAzienda(azienda.getIdIdentifier())); // to TEst
+		
+		response.setPuntiVendita(puntoVenditaFactory.entityToResource(azienda.getPuntiVendita()));
+		
+		for(int i = 0 ; i < response.getPuntiVendita().size(); i++ ) { // for on punti vendita
+			
+//			FedelityCardRequest fcr = new FedelityCardRequest();
+			
+			response.getPuntiVendita().get(i) // get current list punti vendita
+					.setListFedelityCard( // set list into main obj response
+							fedelityCardFactory.entityToResource( // convert list fedelity card to resource
+									findMatchingPuntoVedinta(
+											response.getPuntiVendita().get(i), azienda.getPuntiVendita()) // search for the specific point of sale entity, since it is not certain that the id of the dto list is the same as that of the list entity
+										.getCarteFedelta() // and list of fedelityCard
+									)
+							);
+			
+		}
+		
+		return response;
 	}
 
 	@Override
@@ -102,12 +131,12 @@ public class ServiceAziendaImpl extends BaseService implements ServiceAzienda{
 //	            .orElse(null);
 //	}
 //
-//	private PuntoVendita findMatchingObject(PuntoVenditaRequest dto, List<PuntoVendita> listEntity) { // TODO test
-//		return listEntity.stream()
-//				.filter(entity -> // !dto.equals(entity) &&
-//				Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier()))
-//				.findFirst()
-//				.orElse(null);
-//	}
+	private PuntoVendita findMatchingPuntoVedinta(PuntoVenditaRequest dto, List<PuntoVendita> listEntity) { // TODO test
+		return listEntity.stream()
+					.filter(entity -> // !dto.equals(entity) &&
+						Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier()))
+					.findFirst()
+					.orElse(null);
+	}
 
 }

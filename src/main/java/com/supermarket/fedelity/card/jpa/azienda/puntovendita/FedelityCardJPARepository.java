@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 
+@Repository
 public interface FedelityCardJPARepository extends JpaRepository<FedelityCard, Long>{
 	
 	FedelityCard findByNumeroTessera(String numeroTessera);
