@@ -61,12 +61,14 @@ public class FedelityCardFactory {
 		
 		String idIdentifier = null;
 		
+		List<String> listId = fedelityCardJpaRepository.getAllIdIdentifier();
+		
 		if (null != resource) {
 			
 			if(StringUtils.isEmpty(resource.getNumeroTessera()) || resource.getNumeroTessera().length() < 20) {
 				
 				idIdentifier = Utility.generateRandomString(); // generate unique idIdentifier for fedelitycard
-				while(fedelityCardJpaRepository.getAllIdIdentifier().contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
+				while(listId.contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
 					idIdentifier = Utility.generateRandomString();
 				}
 //				entity.setDataCreazioneTessera(OffsetDateTime.now()); // OffsetDateTime.parse(resource.getDataCreazioneTessera(), DateTimeFormatter.ofPattern("yyyy-MM-dd"))
@@ -75,6 +77,8 @@ public class FedelityCardFactory {
 				entity.setPunti(resource.getPunti());
 			} else {
 				entity = fedelityCardJpaRepository.findByNumeroTessera(resource.getNumeroTessera());
+//				entity.setPuntoVendita(puntoVendita); // TODO
+				entity.setPunti(resource.getPunti());
 			}
 		}
 

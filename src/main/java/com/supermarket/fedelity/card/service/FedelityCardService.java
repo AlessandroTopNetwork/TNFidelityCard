@@ -10,8 +10,10 @@ public interface FedelityCardService {
 	
 	FedelityCardRequest findByNumeroTessera(String numeroTessera); // idIdentifier
 	
-	FedelityCardRequest createFedelityCard(FedelityCardRequest aziendaResource);
+	FedelityCardRequest createFedelityCard(FedelityCardRequest fedelityCardResource, String idIdentifierPuntoVendita);
 	
-	FedelityCardRequest updateFedelityCard(FedelityCardRequest aziendaResource);
+	FedelityCardRequest updateFedelityCard(FedelityCardRequest fedelityCardResource);
+	
+	void deleteFedelityCard(String numeroTessera);
 
 }

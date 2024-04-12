@@ -16,7 +16,5 @@ public class FedelityCardRequest {
 	private long punti;
 	
 	private String puntoVenditaNome;
-	
-	private String idIdentifer;
 
 }

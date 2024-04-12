@@ -3,6 +3,7 @@ package com.supermarket.fedelity.card.entity.cliente;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 
 import jakarta.persistence.Column;
@@ -59,6 +60,7 @@ public class Cliente {
 	
     @ManyToOne
     @JoinColumn(name = "carta_fedelta_id")
+	@JsonBackReference
     private FedelityCard cartaFedelta;
     
     @OneToMany

@@ -17,19 +17,19 @@ import com.supermarket.fedelity.card.service.FedelityCardService;
 
 @RestController
 @RequestMapping(value = "/fedelitycardservice")
-public class ControllerFedelityCard {
+public class ControllerFedelityCard { // crud complete
 	
 	@Autowired
-	private FedelityCardService serviceFedelityCard;
+	private FedelityCardService fedelityCardService;
 	
 	@GetMapping(value = "/fedelityCards")
 	public List<FedelityCardRequest> getfedelityCardByIdIdentifierPuntoVendita(@PathVariable String idIdentifierPuntoVendita) {
-		return serviceFedelityCard.getAllFedelityCardByPuntoVendita(idIdentifierPuntoVendita);
+		return fedelityCardService.getAllFedelityCardByPuntoVendita(idIdentifierPuntoVendita);
 	}
 	
 	@GetMapping(value = "/fedelityCard/{numeroTessera}")
 	public FedelityCardRequest getfedelityCard(@PathVariable String numeroTessera) throws Exception {
-		return serviceFedelityCard.findByNumeroTessera(numeroTessera);
+		return fedelityCardService.findByNumeroTessera(numeroTessera);
 	}
 	
 //	@GetMapping(value = "/fedelityCards/{numeroTessera}")
@@ -37,19 +37,20 @@ public class ControllerFedelityCard {
 //		return serviceAzienda.getListClientiFindByNumeroCarta(numeroTessera);
 //	}
 	
-	@PostMapping(value = "/fedelityCard") // create only azienda and punti vendita // work
-	public FedelityCardRequest registerFedelityCard(@RequestBody FedelityCardRequest fedelityCard) throws Exception {
-		return serviceFedelityCard.createFedelityCard(fedelityCard);
+	@PostMapping(value = "/fedelityCard/{idIdentifierPuntoVendita}") // create only azienda and punti vendita // work
+	public FedelityCardRequest registerFedelityCard(@PathVariable String idIdentifierPuntoVendita, @RequestBody FedelityCardRequest fedelityCard) throws Exception {
+		return fedelityCardService.createFedelityCard(fedelityCard, idIdentifierPuntoVendita);
 	}
 	
 	@PutMapping(value = "/fedelityCard")
 	public FedelityCardRequest modifyFedelityCard(@RequestBody FedelityCardRequest fedelityCard) { // work
-		return serviceFedelityCard.updateFedelityCard(fedelityCard);
+		return fedelityCardService.updateFedelityCard(fedelityCard);
 	}
 	
-	@DeleteMapping(value = "/fedelityCard")
-	public String deleteFedelityCard() {
-		return "";
+	@DeleteMapping(value = "/fedelityCard/{numeroTessera}")
+	public String deleteFedelityCard(@PathVariable String numeroTessera) {
+		fedelityCardService.deleteFedelityCard(numeroTessera);
+		return "test";
 	}
 
 }

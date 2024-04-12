@@ -32,31 +32,45 @@ public class FedelityCardServiceImpl extends BaseService implements FedelityCard
 		
 		List<FedelityCardRequest> listResponse = new ArrayList<FedelityCardRequest>();
 		
-		PuntoVendita pv = puntoVenditaJpaRepository.findByIdIdentifier(idIdentifierPuntoVendita);
+		PuntoVendita pv = puntoVenditaJpaRepository.findByIdIdentifier(idIdentifierPuntoVendita); // find punto vendita 
 		
-		List<FedelityCard> listFedelityCard = pv.getCarteFedelta();
-		
-		listResponse = fedelityCardFactory.entityToResource(listFedelityCard);
+		listResponse = fedelityCardFactory.entityToResource(pv.getCarteFedelta()); // convert fedelity card of punto vendita
 		
 		return listResponse;
 	}
 
 	@Override
 	public FedelityCardRequest findByNumeroTessera(String numeroTessera) {
-		// TODO Auto-generated method stub
-		return null;
+		return fedelityCardFactory.entityToResource(fedelityCardJpaRepository.findByNumeroTessera(numeroTessera)); // find fedelity card and convert it
 	}
 
 	@Override
-	public FedelityCardRequest createFedelityCard(FedelityCardRequest aziendaResource) {
-		// TODO Auto-generated method stub
-		return null;
+	public FedelityCardRequest createFedelityCard(FedelityCardRequest fedelityCardResource, String idIdentifierPuntoVendita) {
+		
+		PuntoVendita pv = puntoVenditaJpaRepository.findByIdIdentifier(idIdentifierPuntoVendita);
+
+		FedelityCard entity = fedelityCardFactory.requestToEntity(fedelityCardResource, pv);
+		
+		fedelityCardJpaRepository.save(entity);
+		
+		return fedelityCardResource;
 	}
 
 	@Override
-	public FedelityCardRequest updateFedelityCard(FedelityCardRequest aziendaResource) {
-		// TODO Auto-generated method stub
-		return null;
+	public FedelityCardRequest updateFedelityCard(FedelityCardRequest fedelityCardResource) {
+		
+		FedelityCard entity = fedelityCardFactory.requestToEntity(fedelityCardResource, null);
+		
+		fedelityCardJpaRepository.save(entity);
+		
+		return fedelityCardResource;
+	}
+
+	@Override
+	public void deleteFedelityCard(String numeroTessera) {
+		FedelityCard fc = fedelityCardJpaRepository.findByNumeroTessera(numeroTessera);
+		
+		fedelityCardJpaRepository.delete(fc); //fedelityCardJpaRepository.delete(fedelityCardJpaRepository.findByNumeroTessera(numeroTessera));
 	}
 
 }

@@ -45,7 +45,6 @@ public class FedelityCard {
 
 	@OneToMany
 	@JoinColumn(name = "carta_fedelta_id")
-	@JsonBackReference
 	private List<Cliente> clienti;
 	
 	@ManyToOne
