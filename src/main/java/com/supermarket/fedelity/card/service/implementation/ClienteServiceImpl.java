@@ -62,4 +62,10 @@ public class ClienteServiceImpl extends BaseService implements ClienteService {
 		return listRequest;
 	}
 
+	@Override
+	public String deleteCliente(String idIdentifier) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

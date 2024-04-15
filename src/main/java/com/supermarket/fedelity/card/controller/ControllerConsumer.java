@@ -47,9 +47,10 @@ public class ControllerConsumer { // controller masetr crud of consumer and affl
 		return "test";
 	}
 	
-	@DeleteMapping(value = "/consumer")
-	public String deleteConsumer() {
-		return "";
+	@DeleteMapping(value = "/consumer/{idIdentifier}")
+	public String deleteConsumer(@PathVariable String idIdentifier) {
+		serviceCliente.deleteCliente(idIdentifier);
+		return "test";
 	}
 
 }

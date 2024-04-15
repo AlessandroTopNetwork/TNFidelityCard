@@ -2,14 +2,12 @@ package com.supermarket.fedelity.card.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.supermarket.fedelity.card.dto.request.azienda.AziendaRequest;
 import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
-import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVenditaRequest;
 import com.supermarket.fedelity.card.entity.azienda.Azienda;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 import com.supermarket.fedelity.card.factory.azienda.AziendaFactory;
@@ -22,6 +20,7 @@ import com.supermarket.fedelity.card.jpa.azienda.puntovendita.PuntoVenditaJPARep
 import com.supermarket.fedelity.card.service.AziendaService;
 import com.supermarket.fedelity.card.service.BaseService;
 import com.supermarket.fedelity.card.service.PuntoVenditaService;
+import com.supermarket.fedelity.card.utility.Utility;
 
 @Service
 public class AziendaServiceImpl extends BaseService implements AziendaService{
@@ -145,12 +144,11 @@ public class AziendaServiceImpl extends BaseService implements AziendaService{
 //	            .orElse(null);
 //	}
 //
-	private PuntoVendita findMatchingPuntoVedinta(PuntoVenditaRequest dto, List<PuntoVendita> listEntity) { // TODO test
-		return listEntity.stream()
-					.filter(entity -> // !dto.equals(entity) &&
-						Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier()))
-					.findFirst()
-					.orElse(null);
+
+	@Override
+	public String deleteAzienda(String idIdentifier) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	private void setFedelityCardToPuntoVendita(AziendaRequest response, Azienda azienda) {
@@ -159,7 +157,7 @@ public class AziendaServiceImpl extends BaseService implements AziendaService{
 			response.getPuntiVendita().get(i) // get current list punti vendita
 					.setListFedelityCard( // set list into main obj response
 							fedelityCardFactory.entityToResource( // convert list fedelity card to resource
-									findMatchingPuntoVedinta(
+									Utility.findMatchingPuntoVedinta(
 											response.getPuntiVendita().get(i), azienda.getPuntiVendita() // search for the specific point of sale entity, since it is not certain that the id of the dto list is the same as that of the list entity
 										).getCarteFedelta() // and list of fedelityCard
 									)
@@ -167,5 +165,7 @@ public class AziendaServiceImpl extends BaseService implements AziendaService{
 			
 		}
 	}
+	
+
 
 }

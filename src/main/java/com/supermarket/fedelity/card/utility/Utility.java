@@ -2,8 +2,13 @@ package com.supermarket.fedelity.card.utility;
 
 import java.lang.reflect.Field;
 import java.security.SecureRandom;
+import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Component;
+
+import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVenditaRequest;
+import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 
 @Component
 public class Utility {
@@ -33,6 +38,14 @@ public class Utility {
 		} catch (Exception e) {
 			throw new RuntimeException("Errore durante la conversione da entità a DTO", e);
 		}
+	}
+	
+	public static PuntoVendita findMatchingPuntoVedinta(PuntoVenditaRequest dto, List<PuntoVendita> listEntity) { // TODO test
+		return listEntity.stream()
+					.filter(entity -> // !dto.equals(entity) &&
+						Objects.equals(dto.getIdIdentifier(), entity.getIdIdentifier()))
+					.findFirst()
+					.orElse(null);
 	}
 
 //	public boolean checkEntityIsEmpty(BaseEntity entity) throws IllegalArgumentException, IllegalAccessException {
@@ -66,13 +79,13 @@ public class Utility {
 //		;
 //	}
 	
-	public static void main(String[] args) {
-		int i = 0;
-		while(i<5) {
-			System.out.println(generateRandomString());
-			i++;
-		}
-		
-	}
+//	public static void main(String[] args) {
+//		int i = 0;
+//		while(i<5) {
+//			System.out.println(generateRandomString());
+//			i++;
+//		}
+//		
+//	}
 
 }

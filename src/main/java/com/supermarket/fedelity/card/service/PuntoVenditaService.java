@@ -2,20 +2,22 @@ package com.supermarket.fedelity.card.service;
 
 import java.util.List;
 
-import com.supermarket.fedelity.card.dto.request.azienda.CreazioneAziendaRequest;
+import com.supermarket.fedelity.card.dto.request.azienda.AziendaRequest;
 import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVenditaRequest;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 
 public interface PuntoVenditaService {
 	
-	List<PuntoVenditaRequest> getPuntiVendita(String idAzienda); // or obj Azienda
+	AziendaRequest getPuntiVendita(String idIdentifierAzienda); // or obj Azienda
 	
-	PuntoVenditaRequest findByIdIdentifier(String idIdentifier);
+	AziendaRequest findByIdIdentifier(String idIdentifierPuntoVendita);
 	
-//	PuntoVenditaRequest createPuntoVendita(PuntoVenditaRequest azienda); // TODO forse inutile
+	AziendaRequest createPuntiVendita(AziendaRequest aziendaResource) throws Exception; // TODO forse inutile
 	
 	List<PuntoVenditaRequest> saveAll(List<PuntoVendita> listPuntoVendita);
 
-	CreazioneAziendaRequest updatePuntiVendita(CreazioneAziendaRequest aziendaResource) throws Exception;
+	AziendaRequest updatePuntiVendita(AziendaRequest aziendaResource) throws Exception;
+	
+	String deletePuntoVendita(String idIdentifier);
 
 }

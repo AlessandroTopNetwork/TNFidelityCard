@@ -46,9 +46,9 @@ public class ControllerAzienda {
 		return serviceAzienda.updateAzienda(azienda);
 	}
 	
-	@DeleteMapping(value = "/company")
-	public String deleteCompany() {
-		return "";
+	@DeleteMapping(value = "/company/{idIdentifier}")
+	public String deleteCompany(@PathVariable String idIdentifier) {
+		return serviceAzienda.deleteAzienda(idIdentifier);
 	}
 
 }

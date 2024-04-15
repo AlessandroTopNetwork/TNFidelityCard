@@ -67,10 +67,12 @@ public class FedelityCardServiceImpl extends BaseService implements FedelityCard
 	}
 
 	@Override
-	public void deleteFedelityCard(String numeroTessera) {
+	public String deleteFedelityCard(String numeroTessera) {
 		FedelityCard fc = fedelityCardJpaRepository.findByNumeroTessera(numeroTessera);
 		
 		fedelityCardJpaRepository.delete(fc); //fedelityCardJpaRepository.delete(fedelityCardJpaRepository.findByNumeroTessera(numeroTessera));
+		
+		return "delete fedelity card numerb : " + numeroTessera;
 	}
 
 }

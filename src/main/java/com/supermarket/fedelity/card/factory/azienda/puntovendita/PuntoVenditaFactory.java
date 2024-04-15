@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import com.supermarket.fedelity.card.dto.request.azienda.AziendaRequest;
 import com.supermarket.fedelity.card.dto.request.azienda.puntovendita.PuntoVenditaRequest;
 import com.supermarket.fedelity.card.entity.azienda.Azienda;
 import com.supermarket.fedelity.card.entity.azienda.TipologiaAzienda;
@@ -46,7 +48,7 @@ public class PuntoVenditaFactory extends BaseFactory {
 	}
 
 	public List<PuntoVenditaRequest> entityToResource(List<PuntoVendita> entityList) {
-
+		
 		List<PuntoVenditaRequest> listPuntiVendita = new ArrayList<PuntoVenditaRequest>();
 
 		for (PuntoVendita resource : entityList) {
@@ -62,13 +64,15 @@ public class PuntoVenditaFactory extends BaseFactory {
 		PuntoVendita entity = new PuntoVendita();
 		
 		String idIdentifier = null;
+		
+		List<String> listIdIdentifier = puntoVenditaJpaRepository.getAllIdIdentifier();
 
 		if(null != resource) {
 			
 			if(StringUtils.isEmpty(resource.getIdIdentifier()) || resource.getIdIdentifier().length() < 20) { // custom mocket lenght of all idIdentifier will be create a tab config for this
 			
 				idIdentifier = Utility.generateRandomString(); // generate unique idIdentifier for puntovendita
-				while(puntoVenditaJpaRepository.getAllIdIdentifier().contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
+				while(listIdIdentifier.contains(idIdentifier)) {  // TODO test if generate id exist on db re-generate it
 					idIdentifier = Utility.generateRandomString();
 				}
 				entity.setAzienda(azienda);

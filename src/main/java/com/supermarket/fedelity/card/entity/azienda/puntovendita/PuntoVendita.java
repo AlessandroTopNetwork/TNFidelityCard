@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.supermarket.fedelity.card.entity.azienda.Azienda;
 import com.supermarket.fedelity.card.entity.azienda.TipologiaAzienda;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -56,7 +57,7 @@ public class PuntoVendita {
 	@JsonBackReference
 	private Azienda azienda;
 	
-	@OneToMany(mappedBy = "puntoVendita") // variabile in FedelityCard che è la FOREIGN KEY su id punto vendita
+	@OneToMany(mappedBy = "puntoVendita", cascade = CascadeType.REMOVE) // variabile in FedelityCard che è la FOREIGN KEY su id punto vendita
     private List<FedelityCard> carteFedelta;
 	
 	@ManyToOne

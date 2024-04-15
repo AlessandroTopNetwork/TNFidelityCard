@@ -13,5 +13,7 @@ public interface ClienteService {
 	ClienteRequest createCliente(ClienteRequest cliente) throws Exception;
 	
 	ClienteRequest findById(long id) throws Exception;
+	
+	String deleteCliente(String idIdentifier);
 
 }

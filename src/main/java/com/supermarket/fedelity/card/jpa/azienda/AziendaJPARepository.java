@@ -11,7 +11,8 @@ import com.supermarket.fedelity.card.entity.azienda.Azienda;
 @Repository
 public interface AziendaJPARepository extends JpaRepository<Azienda, Long>{
 	
-	Azienda findByIdIdentifier(String idIdentifier);
+//	@Query(nativeQuery = true, value = "select * from azienda where id_identifier = :idIdentifier")
+	Azienda findByIdIdentifier(String idIdentifier); // work
 	
 	@Query(nativeQuery = true, value = "SELECT id_identifier from azienda")
 	List<String> getAllIdIdentifier();

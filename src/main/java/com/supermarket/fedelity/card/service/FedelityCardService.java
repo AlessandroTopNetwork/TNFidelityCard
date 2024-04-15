@@ -14,6 +14,6 @@ public interface FedelityCardService {
 	
 	FedelityCardRequest updateFedelityCard(FedelityCardRequest fedelityCardResource);
 	
-	void deleteFedelityCard(String numeroTessera);
+	String deleteFedelityCard(String numeroTessera);
 
 }

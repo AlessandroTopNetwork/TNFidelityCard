@@ -13,4 +13,6 @@ public interface AziendaService {
 	
 	CreazioneAziendaRequest updateAzienda(CreazioneAziendaRequest aziendaResource);
 	
+	String deleteAzienda(String idIdentifier);
+	
 }
