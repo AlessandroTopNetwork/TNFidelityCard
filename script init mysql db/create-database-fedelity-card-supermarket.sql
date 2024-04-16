@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS `carta_fedelta` (
     `id_carta_fedelta` bigint AUTO_INCREMENT PRIMARY KEY,
     `numero_tessera` VARCHAR(20) NOT NULL,
     `data_di_creazione_tessera` TIMESTAMP,
-    `punti` bigint DEFAULT 0
+    `punti` bigint DEFAULT 0,
+    `punto_vendita_id_identifier` varchar(20) not null
 );
 
 -- Creazione della tabella "points_collection_campaign"
@@ -130,10 +131,10 @@ FOREIGN KEY (tipo_cliente_id) REFERENCES tipo_cliente(id_tipo_cliente);
 
 -- add costrain carta_fedelta
 
-ALTER TABLE carta_fedelta ADD COLUMN punto_vendita_id bigint;
+ALTER TABLE carta_fedelta ADD COLUMN azienda_id bigint;
 
-ALTER TABLE carta_fedelta ADD CONSTRAINT fk_tipologia_azienda_carta_fedelta
-FOREIGN KEY (punto_vendita_id) REFERENCES punto_vendita(id_punto_vendita);
+ALTER TABLE carta_fedelta ADD CONSTRAINT fk_azienda_carta_fedelta
+FOREIGN KEY (azienda_id) REFERENCES azienda(id_azienda);
 
 -- add costrain carta_fedelta
 ALTER TABLE carta_fedelta ADD CONSTRAINT fk_punto_vendita_fedelity_card
