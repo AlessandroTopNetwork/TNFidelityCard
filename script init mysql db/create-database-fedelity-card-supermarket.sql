@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `carta_fedelta` (
     `numero_tessera` VARCHAR(20) NOT NULL,
     `data_di_creazione_tessera` TIMESTAMP,
     `punti` bigint DEFAULT 0,
-    `punto_vendita_id_identifier` varchar(20) not null
+    `punto_vendita_id` varchar(20) not null
 );
 
 -- Creazione della tabella "points_collection_campaign"

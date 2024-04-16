@@ -49,7 +49,7 @@ public class FedelityCard {
 	private List<Cliente> clienti;
 	
 	@ManyToOne
-	@JoinColumn(name = "punto_vendita_id_identifier") // collonna sulla tab in essere
+	@JoinColumn(name = "punto_vendita_id") // collonna sulla tab in essere
     private PuntoVendita puntoVendita;
 	
 	@ManyToOne

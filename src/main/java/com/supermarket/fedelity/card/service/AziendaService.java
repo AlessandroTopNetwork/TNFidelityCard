@@ -7,7 +7,7 @@ public interface AziendaService {
 	
 	CreazioneAziendaRequest getAziende();
 	
-	AziendaRequest findByIdIdentifier(String idIdentifier);
+	AziendaRequest findByIdIdentifier(String idIdentifier) throws Exception;
 	
 	CreazioneAziendaRequest createAziendaAndRetailOutlet(CreazioneAziendaRequest aziendaResource);
 	

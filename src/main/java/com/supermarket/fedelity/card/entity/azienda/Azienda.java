@@ -6,6 +6,7 @@ import java.util.List;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,11 +48,11 @@ public class Azienda {
     @Column(name = "id_identifier")
     private String idIdentifier;
 
-    @OneToMany(mappedBy = "azienda")
+    @OneToMany(mappedBy = "azienda", cascade = CascadeType.ALL) // to test
     private List<PuntoVendita> puntiVendita;
     
-//    @OneToMany(mappedBy = "azienda")
-//    private List<FedelityCard> fedelityCards;
+    @OneToMany(mappedBy = "azienda", cascade = CascadeType.REMOVE) // da ritestare ma sembra funzionare
+    private List<FedelityCard> fedelityCards;
     
     @PrePersist
     private void setDateCreate() {

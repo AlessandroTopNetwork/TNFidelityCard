@@ -75,6 +75,8 @@ public class FedelityCardFactory {
 				entity.setPuntoVendita(puntoVendita); // TODO
 				entity.setNumeroTessera(idIdentifier);
 				entity.setPunti(resource.getPunti());
+				entity.setAzienda(puntoVendita.getAzienda());
+				entity.setPuntoVendita(puntoVendita);
 			} else {
 				entity = fedelityCardJpaRepository.findByNumeroTessera(resource.getNumeroTessera());
 //				entity.setPuntoVendita(puntoVendita); // TODO

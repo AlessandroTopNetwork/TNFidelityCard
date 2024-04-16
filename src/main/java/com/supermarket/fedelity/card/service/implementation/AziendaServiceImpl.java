@@ -87,19 +87,24 @@ public class AziendaServiceImpl extends BaseService implements AziendaService{
 	}
 
 	@Override
-	public AziendaRequest findByIdIdentifier(String idIdentifier) {
+	public AziendaRequest findByIdIdentifier(String idIdentifier) throws Exception {
 		
 		AziendaRequest response = new AziendaRequest();
 		
 		Azienda azienda = aziendaJpaRepository.findByIdIdentifier(idIdentifier);
 		
-		response = aziendaFactory.entityToResource(azienda);
-		
-//		List<PuntoVendita> puntiVendita = puntoVenditaJpaRepository.findByAzienda(azienda.getIdIdentifier())); // to TEst
-		
-		response.setPuntiVendita(puntoVenditaFactory.entityToResource(azienda.getPuntiVendita()));
-		
-		setFedelityCardToPuntoVendita(response, azienda);
+		if(null != azienda) {
+			response = aziendaFactory.entityToResource(azienda);
+
+
+//			List<PuntoVendita> puntiVendita = puntoVenditaJpaRepository.findByAzienda(azienda.getIdIdentifier())); // to TEst
+
+			response.setPuntiVendita(puntoVenditaFactory.entityToResource(azienda.getPuntiVendita()));
+
+			setFedelityCardToPuntoVendita(response, azienda);
+		} else {
+			throw new Exception("Azienda not found for id : " + idIdentifier);
+		}
 		
 		return response;
 	}
@@ -109,16 +114,18 @@ public class AziendaServiceImpl extends BaseService implements AziendaService{
 		log.info("call createAzienda");
 		List<PuntoVendita> listPuntiVendita = new ArrayList<PuntoVendita>();
 
-		for (AziendaRequest ar : aziendaResource.getAziende()) {
-			Azienda azienda = aziendaJpaRepository.save(aziendaFactory.resourceToEntity(ar)); // convert and save azienda
+		for (int i = 0; i < aziendaResource.getAziende().size(); i++) {
+			Azienda azienda = aziendaJpaRepository.save(aziendaFactory.resourceToEntity(aziendaResource.getAziende().get(i))); // convert and save azienda
 			
-			listPuntiVendita = puntoVenditaJpaRepository.saveAll(puntoVenditaFactory.resourceToEntity(ar.getPuntiVendita(), azienda)); // convert puntivendita associced and save
+			listPuntiVendita = puntoVenditaJpaRepository.saveAll(puntoVenditaFactory.resourceToEntity(aziendaResource.getAziende().get(i).getPuntiVendita(), azienda)); // convert puntivendita associced and save
 			
 			azienda.setPuntiVendita(listPuntiVendita); // set list punti vendita
 			
+			aziendaResource.getAziende().get(i).setIdIdentifier(azienda.getIdIdentifier());
+			
 			aziendaJpaRepository.save(azienda); // up azienda
 		}
-
+		
 		log.info("end createAzienda");
 		return aziendaResource;
 	}
@@ -147,8 +154,11 @@ public class AziendaServiceImpl extends BaseService implements AziendaService{
 
 	@Override
 	public String deleteAzienda(String idIdentifier) {
-		// TODO Auto-generated method stub
-		return null;
+		Azienda a = aziendaJpaRepository.findByIdIdentifier(idIdentifier);
+		
+		aziendaJpaRepository.delete(a);
+		
+		return "remove azienda with id : " + idIdentifier;
 	}
 	
 	private void setFedelityCardToPuntoVendita(AziendaRequest response, Azienda azienda) {

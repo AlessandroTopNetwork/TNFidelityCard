@@ -57,7 +57,7 @@ public class PuntoVendita {
 	@JsonBackReference
 	private Azienda azienda;
 	
-	@OneToMany(mappedBy = "puntoVendita", cascade = CascadeType.REMOVE) // variabile in FedelityCard che è la FOREIGN KEY su id punto vendita
+	@OneToMany(mappedBy = "puntoVendita") // variabile in FedelityCard che è la FOREIGN KEY su id punto vendita (non è più foreign key ora è associata ad azienda)
     private List<FedelityCard> carteFedelta;
 	
 	@ManyToOne
