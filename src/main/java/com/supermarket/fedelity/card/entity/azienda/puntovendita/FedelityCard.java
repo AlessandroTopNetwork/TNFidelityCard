@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.supermarket.fedelity.card.entity.azienda.Azienda;
 import com.supermarket.fedelity.card.entity.cliente.Cliente;
 
 import jakarta.persistence.Column;
@@ -48,8 +49,13 @@ public class FedelityCard {
 	private List<Cliente> clienti;
 	
 	@ManyToOne
-	@JoinColumn(name = "punto_vendita_id") // collonna sulla tab in essere
+	@JoinColumn(name = "punto_vendita_id_identifier") // collonna sulla tab in essere
     private PuntoVendita puntoVendita;
+	
+	@ManyToOne
+	@JoinColumn(name = "azienda_id")
+	@JsonBackReference
+	private Azienda azienda;
 	
 	@PrePersist
 	private void setDateCreate() {

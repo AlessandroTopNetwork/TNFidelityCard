@@ -22,9 +22,9 @@ public class ControllerFedelityCard { // crud complete
 	@Autowired
 	private FedelityCardService fedelityCardService;
 	
-	@GetMapping(value = "/fedelityCards")
-	public List<FedelityCardRequest> getfedelityCardByIdIdentifierPuntoVendita(@PathVariable String idIdentifierPuntoVendita) {
-		return fedelityCardService.getAllFedelityCardByPuntoVendita(idIdentifierPuntoVendita);
+	@GetMapping(value = "/fedelityCards/{idIdentifierRetailOutlet}")
+	public List<FedelityCardRequest> getfedelityCardByIdIdentifierPuntoVendita(@PathVariable String idIdentifierRetailOutlet) {
+		return fedelityCardService.getAllFedelityCardByPuntoVendita(idIdentifierRetailOutlet);
 	}
 	
 	@GetMapping(value = "/fedelityCard/{numeroTessera}")

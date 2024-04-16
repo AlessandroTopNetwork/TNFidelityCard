@@ -3,6 +3,7 @@ package com.supermarket.fedelity.card.entity.azienda;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import com.supermarket.fedelity.card.entity.azienda.puntovendita.FedelityCard;
 import com.supermarket.fedelity.card.entity.azienda.puntovendita.PuntoVendita;
 
 import jakarta.persistence.Column;
@@ -48,6 +49,9 @@ public class Azienda {
 
     @OneToMany(mappedBy = "azienda")
     private List<PuntoVendita> puntiVendita;
+    
+//    @OneToMany(mappedBy = "azienda")
+//    private List<FedelityCard> fedelityCards;
     
     @PrePersist
     private void setDateCreate() {
